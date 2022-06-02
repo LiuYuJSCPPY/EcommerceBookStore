@@ -9,7 +9,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{CDD0927B-43C6-4EE3-83C7-E15546F7D629}</ProjectGuid>
+    <ProjectGuid>{F48353B7-8D18-4B7D-AE2B-94B7F35B313F}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -19,7 +19,7 @@
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
-    <IISExpressSSLPort>44336</IISExpressSSLPort>
+    <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -253,20 +253,6 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\EcommerceBookStore.Data\EcommerceBookStore.Data.csproj">
-      <Project>{5d9bb579-20bc-4115-a9e7-d9a971d46f1c}</Project>
-      <Name>EcommerceBookStore.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EcommerceBookStore.Model\EcommerceBookStore.Model.csproj">
-      <Project>{365f7d69-a7b8-435d-9a92-61df08a3242b}</Project>
-      <Name>EcommerceBookStore.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EcommerceBookStore.Server\EcommerceBookStore.Server.csproj">
-      <Project>{432ced79-38ce-4797-a0ee-bb2bd6d0b275}</Project>
-      <Name>EcommerceBookStore.Server</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -283,9 +269,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>57374</DevelopmentServerPort>
+          <DevelopmentServerPort>55121</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44336/</IISUrl>
+          <IISUrl>http://localhost:57374/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
