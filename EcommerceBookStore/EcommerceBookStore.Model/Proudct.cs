@@ -9,7 +9,7 @@ using System.ComponentModel;
 
 namespace EcommerceBookStore.Model
 {
-
+    [Table("Proudct",Schema ="dbo")]
     public class Proudct
     {
         public int Id { get; set; }
@@ -33,6 +33,7 @@ namespace EcommerceBookStore.Model
 
 
         public ICollection<CartItem> cartItems { get; set; }
+        public ICollection<OrderItem> orderItems { get; set; }
 
     }
 }

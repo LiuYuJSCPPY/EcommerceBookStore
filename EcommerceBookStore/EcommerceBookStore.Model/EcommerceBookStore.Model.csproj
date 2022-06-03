@@ -101,6 +101,8 @@
     <Compile Include="CartItem.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Discount.cs" />
+    <Compile Include="Order.cs" />
+    <Compile Include="OrderItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proudct.cs" />
     <Compile Include="BookStoreUser.cs" />
