@@ -12,7 +12,7 @@ namespace EcommerceBookStore.Data
     public class EBookStoreContext : IdentityDbContext<BookStoreUser>
     {
         public EBookStoreContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("EBookStoreContext", throwIfV1Schema: false)
         {
         }
 

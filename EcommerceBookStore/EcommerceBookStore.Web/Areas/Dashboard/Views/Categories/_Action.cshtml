@@ -1,0 +1,45 @@
+﻿@model EcommerceBookStore.Web.Areas.Dashboard.ViewModel.CategoryViewModel
+@{
+    ViewBag.Title = "_Action";
+}
+
+<div class="modal-header">
+    <h5 class="modal-title" id="modalCenterTitle">Modal title</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col mb-3">
+            @Html.LabelFor(model => model.Name, new { @class= "form-label" })
+            
+            @Html.TextBoxFor(model => model.Name ,new { @class = "form-control" })
+           
+        </div>
+    </div>
+    <div class="row g-2">
+        @Html.LabelFor(model => model.CategroyImage, new { @class = "form-label" })
+        <input class="form-control" type="file" id="formFile" accept="image/gif, image/jpeg, image/png">>
+        <img id="ViewImage" class="card-img-top" src="">
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+        Close
+    </button>
+    <button type="button" class="btn btn-primary">Save changes</button>
+</div>
+
+<script>
+    $("#formFile").change(function () {
+        readURL(this);
+    });
+
+    function readURL(input) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $("#ViewImage").attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+
+</script>

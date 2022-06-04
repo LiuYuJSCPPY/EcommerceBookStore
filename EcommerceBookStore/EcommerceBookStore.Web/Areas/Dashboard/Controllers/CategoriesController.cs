@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using EcommerceBookStore.Data;
 using EcommerceBookStore.Model;
+using EcommerceBookStore.Service;
 
 namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
 {
@@ -18,10 +19,16 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
         // GET: Dashboard/Categories
         public ActionResult Index()
         {
-            return View(db.Categories.ToList());
+            CategoriesService categoriesService = new CategoriesService();
+            return View(categoriesService.GetAllCategroies());
         }
 
         // GET: Dashboard/Categories/Details/5
+
+        public ActionResult Action()
+        {
+            return PartialView("_Action");
+        }
         public ActionResult Details(int? id)
         {
             if (id == null)

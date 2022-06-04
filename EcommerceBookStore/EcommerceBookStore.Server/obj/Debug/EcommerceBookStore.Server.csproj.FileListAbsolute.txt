@@ -4,3 +4,16 @@ E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStor
 E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Server\obj\Debug\EcommerceBookStore.Server.csproj.CoreCompileInputs.cache
 E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Server\obj\Debug\EcommerceBookStore.Server.dll
 E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Server\obj\Debug\EcommerceBookStore.Server.pdb
+E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Server\bin\Debug\EcommerceBookStore.Data.dll
+E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Server\bin\Debug\EcommerceBookStore.Model.dll
+E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Server\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Server\bin\Debug\EntityFramework.dll
+E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Server\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Server\bin\Debug\EcommerceBookStore.Data.pdb
+E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Server\bin\Debug\EcommerceBookStore.Data.dll.config
+E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Server\bin\Debug\EcommerceBookStore.Model.pdb
+E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Server\bin\Debug\EcommerceBookStore.Model.dll.config
+E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Server\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Server\bin\Debug\EntityFramework.xml
+E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Server\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Server\obj\Debug\EcommerceBookStore.Server.csproj.CopyComplete

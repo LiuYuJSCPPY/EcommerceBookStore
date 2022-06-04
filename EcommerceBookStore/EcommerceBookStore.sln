@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerceBookStore.Model", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerceBookStore.Data", "EcommerceBookStore.Data\EcommerceBookStore.Data.csproj", "{5D9BB579-20BC-4115-A9E7-D9A971D46F1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerceBookStore.Server", "EcommerceBookStore.Server\EcommerceBookStore.Server.csproj", "{432CED79-38CE-4797-A0EE-BB2BD6D0B275}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerceBookStore.Service", "EcommerceBookStore.Server\EcommerceBookStore.Service.csproj", "{432CED79-38CE-4797-A0EE-BB2BD6D0B275}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcommerceBookStore.Web", "EcommerceBookStore.Web\EcommerceBookStore.Web.csproj", "{F48353B7-8D18-4B7D-AE2B-94B7F35B313F}"
 EndProject
