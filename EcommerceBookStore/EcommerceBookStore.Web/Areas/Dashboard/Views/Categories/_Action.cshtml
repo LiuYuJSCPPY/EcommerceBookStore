@@ -18,7 +18,7 @@
     </div>
     <div class="row g-2">
         @Html.LabelFor(model => model.CategroyImage, new { @class = "form-label" })
-        <input class="form-control" type="file" id="formFile" accept="image/gif, image/jpeg, image/png">>
+        <input class="form-control" type="file" id="formFile" accept="image/gif, image/jpeg, image/png">
         <img id="ViewImage" class="card-img-top" src="">
     </div>
 </div>
@@ -26,7 +26,10 @@
     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
         Close
     </button>
-    <button type="button" class="btn btn-primary">Save changes</button>
+    <button id="SaveButton" type="button" class="btn btn-primary">儲存</button>
+</div>
+<div class="errorDiv">
+
 </div>
 
 <script>
@@ -41,5 +44,35 @@
         }
         reader.readAsDataURL(input.files[0]);
     }
+
+
+
+
+    $("#SaveButton").click(function () {
+
+
+        var formdata = new FormData();
+        var name = $("#Name").val();
+        var CategroyImage = $("#formFile")[0].files[0];
+
+        formdata.append("Name", name);
+        formdata.append("UpImage", CategroyImage);
+
+
+        $.ajax({
+            url: "@Url.Action("Action", "Categories")",
+            type: "post",
+            processData: false,
+            contentType: false,
+            data: formdata
+        }).done(function (respone) {
+            debugger;
+            if (respone.Success) {
+                location.reload();
+            } else {
+                $(".errorDiv").html(response.Message);
+            }
+        })
+    })
 
 </script>

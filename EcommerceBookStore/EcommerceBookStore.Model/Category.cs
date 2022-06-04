@@ -13,7 +13,11 @@ namespace EcommerceBookStore.Model
     public class Category
     {
         public int Id { get; set; }
+
+        [DisplayName("名字")]
         public string Name { get; set; }
+
+        [DisplayName("圖片")]
         public string CategroyImage { get; set; }
 
         public ICollection<Proudct> proudcts { get; set; }

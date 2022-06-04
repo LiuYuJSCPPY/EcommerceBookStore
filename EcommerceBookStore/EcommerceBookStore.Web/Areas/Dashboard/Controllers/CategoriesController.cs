@@ -9,13 +9,17 @@ using System.Web.Mvc;
 using EcommerceBookStore.Data;
 using EcommerceBookStore.Model;
 using EcommerceBookStore.Service;
+using EcommerceBookStore.Web.Areas.Dashboard.ViewModel;
+using System.IO;
+
+
 
 namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
 {
     public class CategoriesController : Controller
     {
         private EBookStoreContext db = new EBookStoreContext();
-
+        CategoriesService categoriesService = new CategoriesService();
         // GET: Dashboard/Categories
         public ActionResult Index()
         {
@@ -28,6 +32,47 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
         public ActionResult Action()
         {
             return PartialView("_Action");
+        }
+
+        [HttpPost]
+        public JsonResult Action([Bind(Include = "Name")]Category category,HttpPostedFileBase UpImage)
+        {
+            JsonResult json = new JsonResult();
+            bool Result = false;
+
+                string SaveFilePath = Server.MapPath("~/Image/Category/");
+                if (!Directory.Exists(SaveFilePath))
+                {
+                    Directory.CreateDirectory(SaveFilePath);
+                }
+                string FileName = Path.GetFileName(UpImage.FileName);
+                string _FileName = DateTime.Now.ToString("yyyymmssfff") + FileName;
+                string Extension = Path.GetExtension(UpImage.FileName);
+                string SavePath = Path.Combine(SaveFilePath, _FileName);
+                string CategroyImage = "~/Image/Category/" + _FileName;
+
+                if(Extension.ToLower() == ".jpg" || Extension.ToLower() == ".jepg" || Extension.ToLower() == ".png")
+                {
+                    if(UpImage.ContentLength < 100000000)
+                    {
+                        UpImage.SaveAs(SavePath);
+                        category.CategroyImage = CategroyImage;
+                        Result = categoriesService.SaveCategory(category);
+                    }
+                }
+
+            if (Result)
+            {
+                json.Data = new { Success = true };
+            }
+            else
+            {
+                json.Data = new { Success = false, Message = "上傳失敗" };
+
+            }
+
+            return json;
+
         }
         public ActionResult Details(int? id)
         {
