@@ -169,6 +169,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Dashboard\Controllers\CategoriesController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\DiscountsController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
     <Compile Include="Areas\Dashboard\ViewModel\CategoryViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -197,13 +198,14 @@
     <Content Include="Areas\Dashboard\Views\web.config" />
     <Content Include="Areas\Dashboard\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Dashboard\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Dashboard\Views\Categories\Create.cshtml" />
-    <Content Include="Areas\Dashboard\Views\Categories\Delete.cshtml" />
-    <Content Include="Areas\Dashboard\Views\Categories\Details.cshtml" />
-    <Content Include="Areas\Dashboard\Views\Categories\Edit.cshtml" />
     <Content Include="Areas\Dashboard\Views\Categories\Index.cshtml" />
     <Content Include="Areas\Dashboard\Views\Categories\_Action.cshtml" />
     <Content Include="Areas\Dashboard\Views\Categories\_Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Discounts\Create.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Discounts\Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Discounts\Details.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Discounts\Edit.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Discounts\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

@@ -129,23 +129,42 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = _db.Categories.Find(id);
+            var category = categoriesService.GetCategoryByID((int)id);
+          
             if (category == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return PartialView("_Delete", category);
         }
 
         // POST: Dashboard/Categories/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public JsonResult DeleteConfirmed(int id)
         {
-            Category category = _db.Categories.Find(id);
-            _db.Categories.Remove(category);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            JsonResult json = new JsonResult();
+            bool Result = false;
+
+
+            var DeleteCategory = categoriesService.GetCategoryByID(id);
+            if (System.IO.File.Exists(DeleteCategory.CategroyImage))
+            {
+                System.IO.File.Delete(DeleteCategory.CategroyImage);
+            }
+
+            Result = categoriesService.DeleteCategory(id);
+
+            if (Result)
+            {
+                json.Data = new { Success = true };
+
+            }
+            else
+            {
+                json.Data = new { Success = false, Message = "刪除失敗!" };
+            }
+
+            return json;
         }
 
         protected override void Dispose(bool disposing)

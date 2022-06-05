@@ -1,7 +1,52 @@
-﻿
+﻿@model EcommerceBookStore.Model.Category
 @{
-    ViewBag.Title = "_Delete";
+    ViewBag.Title = "_Action";
 }
 
-<h2>_Delete</h2>
 
+    <div class="modal-header">
+        <h5 class="modal-title" id="modalCenterTitle">刪除分類</h5>
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+        
+    <div class="modal-body">
+        <div class="row">
+            <div class="col mb-3">
+                <form id="DeleteForm">
+                    <input type="hidden" id="CategoryId" name="Id" value="@Model.Id">
+                    <div class="alert alert-danger" role="alert">你確定要刪除嗎??</div>
+                </form>
+                
+            </div>
+        </div>
+       
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+            關閉
+        </button>
+        <button id="DeleteButton" type="button" class="btn btn-primary">儲存</button>
+    </div>
+    <div class="errorDiv">
+
+    </div>
+
+    <script>
+        $("#DeleteButton").click(function () {
+            $.ajax({
+                url: "@Url.Action("DeleteConfirmed", "Categories")",
+                type: "post",
+                data: $("#DeleteForm").serialize()
+            }).done(function (respone) {
+                debugger;
+                if (respone.Success) {
+                    window.location.href = "@Url.Action("Index", "Categories")";
+                }
+                else
+                {
+                    $(".errorDiv").html(response.Message);
+                }
+            })
+        })
+    </script>

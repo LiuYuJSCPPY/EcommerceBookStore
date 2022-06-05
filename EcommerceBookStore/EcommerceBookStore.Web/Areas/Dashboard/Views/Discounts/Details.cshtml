@@ -1,0 +1,74 @@
+﻿@model EcommerceBookStore.Model.Discount
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Discount</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Desc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Desc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DiscountImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DiscountImage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Discount_Preceint)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Discount_Preceint)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsActival)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsActival)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Create_at)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Create_at)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Modified_at)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Modified_at)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

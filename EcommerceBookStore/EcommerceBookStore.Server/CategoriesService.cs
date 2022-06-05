@@ -43,9 +43,13 @@ namespace EcommerceBookStore.Service
             return dbContext.SaveChanges() > 0;
         }
 
-        public bool DeleteCategory()
+        public bool DeleteCategory(int id)
         {
+            var dbContext = new EBookStoreContext();
+            var deleteCategroy = dbContext.Categories.Find(id);
+            dbContext.Categories.Remove(deleteCategroy);
 
+            return dbContext.SaveChanges() > 0;
         }
 
     }
