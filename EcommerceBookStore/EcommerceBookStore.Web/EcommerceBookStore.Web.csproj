@@ -172,6 +172,7 @@
     <Compile Include="Areas\Dashboard\Controllers\DiscountsController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
     <Compile Include="Areas\Dashboard\ViewModel\CategoryViewModel.cs" />
+    <Compile Include="Areas\Dashboard\ViewModel\DiscountViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -206,6 +207,8 @@
     <Content Include="Areas\Dashboard\Views\Discounts\Details.cshtml" />
     <Content Include="Areas\Dashboard\Views\Discounts\Edit.cshtml" />
     <Content Include="Areas\Dashboard\Views\Discounts\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Discounts\_Details.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Discounts\_Action.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

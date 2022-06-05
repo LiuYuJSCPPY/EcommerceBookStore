@@ -19,8 +19,8 @@ namespace EcommerceBookStore.Model
         public string DiscountImage { get; set;}
         public decimal Discount_Preceint { get; set; }
         public bool IsActival { get; set; }
-        public DateTime Create_at { get; set; }
-        public DateTime Modified_at { get; set; }
+        public DateTime? Create_at { get; set; }
+        public DateTime? Modified_at { get; set; }
 
 
         public ICollection<Proudct> Proudcts { get; set; }
