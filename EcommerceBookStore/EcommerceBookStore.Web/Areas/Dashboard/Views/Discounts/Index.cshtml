@@ -15,7 +15,7 @@
     <div class="card-header">
         <ul class="nav nav-pills" role="tablist">
             <li class="nav-item">
-                <button id="ActionForm" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exLargeModal">
+                <button id="ActionForm" type="button" data-herf="@Url.Action("Action","Discounts")"  class="data-btn btn btn-primary" data-bs-toggle="modal" data-bs-target="#exLargeModal">
                     新增折扣活動
                 </button>
             </li>
@@ -44,9 +44,9 @@
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@DiscountItem.Name</strong></td>
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> @DiscountItem.Desc</td>
                         <td>
-                            <img src="@Url.Action(DiscountItem.DiscountImage)" alt="collapse-image" height="125" class="me-4 mb-sm-0 mb-2">
+                            <img src="@Url.Content(DiscountItem.DiscountImage)" alt="collapse-image" height="125" class="me-4 mb-sm-0 mb-2">
                         </td>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@DiscountItem.Discount_Preceint</strong></td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@DiscountItem.Discount_Preceint </strong></td>
                         @if (DiscountItem.IsActival)
                         {
                             <td><i class="fab fa-angular fa-lg text-danger me-3"></i>活動正在進行中...</td>
@@ -63,8 +63,9 @@
                                     <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
                                 <div class="dropdown-menu" style="">
-                                    <button class="data-btn dropdown-item" data-herf="" data-bs-toggle="modal" data-bs-target="#ActionForm"><i class="bx bx-edit-alt me-1"></i> 更新</button>
-                                    <button class="data-btn dropdown-item" data-herf="" data-bs-toggle="modal" data-bs-target="#ActionForm"><i class="bx bx-trash me-1"></i> 刪除</button>
+                                    <button class="data-btn dropdown-item" data-herf="@Url.Action("Action","Discounts",new { Id = DiscountItem.Id })" data-bs-toggle="modal" data-bs-target="#exLargeModal"><i class="bx bx-edit-alt me-1"></i> 更新</button>
+
+                                    <button class="data-btn dropdown-item" data-herf="" data-bs-toggle="modal" data-bs-target="#exLargeModal"><i class="bx bx-trash me-1"></i> 刪除</button>
                                 </div>
                             </div>
                         </td>
@@ -84,7 +85,7 @@
 <div class="modal fade" id="exLargeModal" tabindex="-1" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
-           @*  *@
+          
         </div>
     </div>
 </div>
@@ -93,9 +94,9 @@
 
 
 <script>
-    $("#ActionForm").click(function () {
+    $(".data-btn").click(function () {
         $.ajax({
-            url: "@Url.Action("Action", "Discounts")",
+            url: $(this).attr("data-herf"),
             type: "get",
         }).done(function (respone) {
             debugger;

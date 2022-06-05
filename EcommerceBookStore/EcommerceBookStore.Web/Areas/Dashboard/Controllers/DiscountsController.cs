@@ -43,14 +43,28 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
         }
 
 
-        public ActionResult Action()
+        public ActionResult Action(int? Id)
         {
-            return PartialView("_Action");
+
+           DiscountViewModel model = new DiscountViewModel();
+         
+           if(Id.HasValue)
+            { 
+                var discount = discountService.GetDiscount(Id.Value);
+                model.Id = Id.Value;
+                model.Name = discount.Name;
+                model.Discount_Preceint = discount.Discount_Preceint;
+                model.Desc = discount.Desc;
+                model.DiscountImage = discount.DiscountImage;
+                model.IsActival = discount.IsActival;
+            }
+
+            return PartialView("_Action", model);
         }
 
 
         [HttpPost]
-        public JsonResult Action(Discount discount , HttpPostedFileBase DicountImage)
+        public JsonResult Action([Bind(Include = "Id,Name,Desc,Discount_Preceint,DiscountImage,IsActival")]Discount discount , HttpPostedFileBase DicountImage)
         {
             JsonResult json = new JsonResult();
             bool Result = false;
@@ -67,6 +81,7 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
             string SavePath = Path.Combine(FilePath, _FileName);
             string ImagePath = "~/Image/Discount/" + _FileName;
 
+           
 
             if (Extesion.ToLower() == ".jpg" || Extesion.ToLower() == ".jepg" || Extesion.ToLower() == ".png")
             {
@@ -74,11 +89,12 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
                 discount.DiscountImage = ImagePath;
                 discount.Create_at = DateTime.Now;
                 discount.Modified_at = DateTime.Now;
+               
                 Result = discountService.SaveDiscount(discount);
             }
 
 
-            Result = discountService.SaveDiscount(discount);
+           
 
             if (Result)
             {

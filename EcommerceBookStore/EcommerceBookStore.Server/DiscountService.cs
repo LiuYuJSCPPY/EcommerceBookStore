@@ -16,6 +16,11 @@ namespace EcommerceBookStore.Server
             return dbContext.discounts.ToList();
         }
 
+        public Discount GetDiscount(int Id)
+        {
+            EBookStoreContext dbContext = new EBookStoreContext();
+            return dbContext.discounts.Find(Id);
+        }
 
         public bool SaveDiscount(Discount discount)
         {

@@ -1,55 +1,97 @@
 ﻿@model EcommerceBookStore.Web.Areas.Dashboard.ViewModel.DiscountViewModel
 
-<div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel4">新增折扣活動</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-</div>
-<div class="modal-body">
-    <form id="ActionForm">
-        <div class="row mb-3">
-            @Html.LabelFor(model => model.Name, new { @class = "col-sm-2 col-form-label" })
 
-            <div class="col-sm-10">
-                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+@if (Model != null)
+{
+    <div class="modal-header">
+        @if (Model.Id > 0)
+        {
 
+            <h5 class="modal-title" id="exampleModalLabel4">更新折扣活動</h5>
+        }
+        else
+        {
+            <h5 class="modal-title" id="exampleModalLabel4">新增折扣活動</h5>
+        }
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <form id="ActionForm">
+            <div class="row mb-3">
+                @Html.LabelFor(model => model.Name, new { @class = "col-sm-2 col-form-label" })
+
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+
+                </div>
             </div>
-        </div>
-        <div class="row mb-3">
-            @Html.LabelFor(model => model.Discount_Preceint, new { @class = "col-sm-2 col-form-label" })
-            <div class="col-sm-10">
-                @Html.TextBoxFor(model => model.Discount_Preceint, new { @class = "form-control" ,type="number" })
+            <div class="row mb-3">
+                @Html.LabelFor(model => model.Discount_Preceint, new { @class = "col-sm-2 col-form-label" })
+                <div class="col-sm-10">
+                    @Html.TextBoxFor(model => model.Discount_Preceint, new { @class = "form-control", type = "number" })
+                </div>
             </div>
-        </div>
 
-        <div class="row mb-3">
-            @Html.LabelFor(model => model.Desc, new { @class = "col-sm-2 col-form-label" })
+            <div class="row mb-3">
+                @Html.LabelFor(model => model.Desc, new { @class = "col-sm-2 col-form-label" })
 
-            <div class="col-sm-10">
-                @Html.TextAreaFor(model => model.Desc, new { @class = "form-control" })
+                <div class="col-sm-10">
+                    @Html.TextAreaFor(model => model.Desc, new { @class = "form-control" })
 
+                </div>
             </div>
-        </div>
-        <div class="row mb-3">
-            <label class="col-sm-2 col-form-label" for="basic-default-phone">圖片</label>
-            <div class="col-sm-10">
-                <input class="form-control" type="file" id="ImageFile" accept="image/gif, image/jpeg, image/png">
+
+            <div class="row mb-3">
+                <label class="col-sm-2 col-form-label" for="basic-default-phone">圖片</label>
+                <div class="col-sm-10">
+                    <input class="form-control" type="file" id="ImageFile" accept="image/gif, image/jpeg, image/png">
+                </div>
+                <div class="card">
+                    <img id="ViewImage" class="card-img-top" src="">
+                </div>
             </div>
-            <div class="card">
-                <img id="ViewImage" class="card-img-top" src="">
+
+
+            <div class="row mb-3">
+
+
+                <div class="col-sm-10">
+
+
+                    <div class="form-check form-switch mb-2">
+                        <input class="form-check-input" type="checkbox" id="IsActival" value="false">
+                        @Html.LabelFor(model => model.IsActival, new { @class = "form-check-label" })
+                    </div>
+                </div>
             </div>
-        </div>
 
 
-    </form>
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-        關閉  
-    </button>
-    <button type="button" class="btn btn-primary">儲存</button>
-</div>
 
-<script>
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+            關閉
+        </button>
+        <button id="SaveBtn" type="button" class="btn btn-primary">儲存</button>
+    </div>
+
+    <div class="errorDiv">
+
+    </div>
+
+    <script>
+    $("#IsActival").on('change', function () {
+        if ($(this).is(':checked')) {
+            $(this).attr('value', 'true');
+        } else {
+            $(this).attr('value', 'false');
+        }
+    });
+
+
     $("#ImageFile").change(function () {
         readView(this);
     })
@@ -63,4 +105,35 @@
     }
 
 
-</script>
+    $("#SaveBtn").click(function () {
+
+        var Discrount = new FormData();
+        var DName = $("#Name").val();
+        var DPreceint = $("#Discount_Preceint").val();
+        var DDesc = $("#Desc").val();
+        var DIsActival = $("#IsActival").val();
+        var DFIle = $("#ImageFile")[0].files[0];
+        Discrount.append("Name", DName);
+        Discrount.append("Desc", DDesc);
+        Discrount.append("Discount_Preceint", DPreceint);
+        Discrount.append("IsActival", DIsActival);
+        Discrount.append("DicountImage", DFIle);
+
+        $.ajax({
+            url: "@Url.Action("Action", "Discounts")",
+            type: "post",
+            processData: false,
+            contentType: false,
+            data: Discrount
+        }).done(function (respone) {
+            debugger;
+            if (respone.Success) {
+                location.reload();
+            } else {
+                $(".errorDiv").html(respone.Message);
+            }
+        })
+    })
+
+    </script>
+}
