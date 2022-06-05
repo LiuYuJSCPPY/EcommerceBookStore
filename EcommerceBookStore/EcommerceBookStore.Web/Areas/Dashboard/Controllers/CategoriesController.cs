@@ -18,7 +18,7 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
 {
     public class CategoriesController : Controller
     {
-        private EBookStoreContext db = new EBookStoreContext();
+        private EBookStoreContext _db = new EBookStoreContext();
         CategoriesService categoriesService = new CategoriesService();
         // GET: Dashboard/Categories
         public ActionResult Index()
@@ -29,117 +29,97 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
 
         // GET: Dashboard/Categories/Details/5
 
-        public ActionResult Action()
+        public ActionResult Action(int? Id)
         {
-            return PartialView("_Action");
+            CategoryViewModel model = new CategoryViewModel();
+            if (Id.HasValue)
+            {
+                var EditCategory = _db.Categories.Find(Id);
+                model.Id = Id.Value;
+                model.Name = EditCategory.Name;
+                model.CategroyImage = EditCategory.CategroyImage;
+            }
+
+
+            return PartialView("_Action",model);
         }
 
         [HttpPost]
-        public JsonResult Action([Bind(Include = "Name")]Category category,HttpPostedFileBase UpImage)
+        public JsonResult Action([Bind(Include = "Id,Name")] Category category, HttpPostedFileBase UpImage)
         {
             JsonResult json = new JsonResult();
             bool Result = false;
 
-                string SaveFilePath = Server.MapPath("~/Image/Category/");
+            string SaveFilePath = Server.MapPath("~/Image/Category/");
+            string FileName = Path.GetFileName(UpImage.FileName);
+            string _FileName = DateTime.Now.ToString("yyyymmssfff") + FileName;
+            string Extension = Path.GetExtension(UpImage.FileName);
+            string SavePath = Path.Combine(SaveFilePath, _FileName);
+            string CategroyImage = "~/Image/Category/" + _FileName;
+
+
+            if (category.Id > 0)
+            {
+                var OldCategory = _db.Categories.Find(category.Id);
+                string OldImage = Request.MapPath(OldCategory.CategroyImage.ToString());
+
+                var EditCategory = categoriesService.GetCategoryByID(category.Id);
+
+
+
+
+                EditCategory.Id = category.Id;
+                EditCategory.Name = category.Name;
+                EditCategory.CategroyImage = CategroyImage;
+
+                if (Extension.ToLower() == ".jpg" || Extension.ToLower() == ".jepg" || Extension.ToLower() == ".png")
+                {
+                    if (UpImage.ContentLength < 100000000)
+                    {
+                        if (System.IO.File.Exists(OldImage))
+                        {
+                            System.IO.File.Delete(OldImage);
+                            UpImage.SaveAs(SavePath);
+                            Result = categoriesService.EditCategroy(EditCategory);
+                        }
+
+                    }
+
+                }
+            }
+            else
+            {
+
                 if (!Directory.Exists(SaveFilePath))
                 {
                     Directory.CreateDirectory(SaveFilePath);
                 }
-                string FileName = Path.GetFileName(UpImage.FileName);
-                string _FileName = DateTime.Now.ToString("yyyymmssfff") + FileName;
-                string Extension = Path.GetExtension(UpImage.FileName);
-                string SavePath = Path.Combine(SaveFilePath, _FileName);
-                string CategroyImage = "~/Image/Category/" + _FileName;
 
-                if(Extension.ToLower() == ".jpg" || Extension.ToLower() == ".jepg" || Extension.ToLower() == ".png")
+
+                if (Extension.ToLower() == ".jpg" || Extension.ToLower() == ".jepg" || Extension.ToLower() == ".png")
                 {
-                    if(UpImage.ContentLength < 100000000)
+                    if (UpImage.ContentLength < 100000000)
                     {
                         UpImage.SaveAs(SavePath);
                         category.CategroyImage = CategroyImage;
                         Result = categoriesService.SaveCategory(category);
                     }
                 }
-
-            if (Result)
-            {
-                json.Data = new { Success = true };
-            }
-            else
-            {
-                json.Data = new { Success = false, Message = "上傳失敗" };
-
             }
 
-            return json;
 
-        }
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = db.Categories.Find(id);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-            return View(category);
-        }
+                if (Result)
+                {
+                    json.Data = new { Success = true };
+                }
+                else
+                {
+                    json.Data = new { Success = false, Message = "上傳失敗" };
 
-        // GET: Dashboard/Categories/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+                }
 
-        // POST: Dashboard/Categories/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,CategroyImage")] Category category)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Categories.Add(category);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                return json;
 
-            return View(category);
-        }
-
-        // GET: Dashboard/Categories/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = db.Categories.Find(id);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-            return View(category);
-        }
-
-        // POST: Dashboard/Categories/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,CategroyImage")] Category category)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(category).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(category);
         }
 
         // GET: Dashboard/Categories/Delete/5
@@ -149,7 +129,7 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+            Category category = _db.Categories.Find(id);
             if (category == null)
             {
                 return HttpNotFound();
@@ -162,9 +142,9 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
-            db.SaveChanges();
+            Category category = _db.Categories.Find(id);
+            _db.Categories.Remove(category);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -172,9 +152,10 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
     }
+
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EcommerceBookStore.Data;
 using EcommerceBookStore.Model;
+using System.Data.Entity;
 
 namespace EcommerceBookStore.Service
 {
@@ -17,6 +18,14 @@ namespace EcommerceBookStore.Service
         }
         
 
+        public Category  GetCategoryByID(int Id)
+        {
+            var dbContext = new EBookStoreContext();
+
+            return dbContext.Categories.Find(Id);
+        }
+
+
         public bool SaveCategory(Category category)
         {
             var dbContext = new EBookStoreContext();
@@ -25,6 +34,19 @@ namespace EcommerceBookStore.Service
             return dbContext.SaveChanges() > 0;
         }
 
+
+        public bool EditCategroy(Category category)
+        {
+            var dbContext = new EBookStoreContext();
+            dbContext.Entry(category).State = EntityState.Modified;
+            
+            return dbContext.SaveChanges() > 0;
+        }
+
+        public bool DeleteCategory()
+        {
+
+        }
 
     }
 }

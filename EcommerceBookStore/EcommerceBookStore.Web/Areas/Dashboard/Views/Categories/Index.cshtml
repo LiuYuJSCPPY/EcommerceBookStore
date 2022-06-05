@@ -13,7 +13,7 @@
     <div class="card-header">
         <ul class="nav nav-pills" role="tablist">
             <li class="nav-item">
-                <button id="ActionButton" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ActionForm">
+                <button id="ActionButton" type="button" data-herf="@Url.Action("Action","Categories")" class="data-btn btn btn-primary" data-bs-toggle="modal" data-bs-target="#ActionForm">
                     新增分類
                 </button>
             </li>
@@ -50,8 +50,8 @@
                                         <i class="bx bx-dots-vertical-rounded"></i>
                                     </button>
                                     <div class="dropdown-menu" style="">
-                                        <button class="data-btn dropdown-item" data-herf="@Url.Action("Action","Categories",new { Id = item.Id })"><i class="bx bx-edit-alt me-1"></i> 更新</button>
-                                        <button class="data-btn dropdown-item"data-herf="@Url.Action("Action","Categories",new { Id = item.Id })" ><i class="bx bx-trash me-1"></i> 刪除</button>
+                                        <button class="data-btn dropdown-item" data-herf="@Url.Action("Action","Categories",new { Id = item.Id })" data-bs-toggle="modal" data-bs-target="#ActionForm"><i class="bx bx-edit-alt me-1"></i> 更新</button>
+                                        <button class="data-btn dropdown-item"data-herf="@Url.Action("Action","Categories",new { Id = item.Id })"data-bs-toggle="modal" data-bs-target="#ActionForm" ><i class="bx bx-trash me-1"></i> 刪除</button>
                                     </div>
                                 </div>
                             </td>

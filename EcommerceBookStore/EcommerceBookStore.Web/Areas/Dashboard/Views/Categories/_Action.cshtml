@@ -3,36 +3,55 @@
     ViewBag.Title = "_Action";
 }
 
-<div class="modal-header">
-    <h5 class="modal-title" id="modalCenterTitle">Modal title</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-</div>
-<div class="modal-body">
-    <div class="row">
-        <div class="col mb-3">
-            @Html.LabelFor(model => model.Name, new { @class= "form-label" })
-            
-            @Html.TextBoxFor(model => model.Name ,new { @class = "form-control" })
-           
+@if (Model != null)
+{
+    <div class="modal-header">
+        @if (Model.Id > 0)
+        {
+            <h5 class="modal-title" id="modalCenterTitle">更新分類</h5>
+        }
+        else
+        {
+            <h5 class="modal-title" id="modalCenterTitle">新增分類</h5>
+        }
+
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col mb-3">
+                <input type="hidden" id="CategoryId" name="Id" value="@Model.Id">
+                @Html.LabelFor(model => model.Name, new { @class = "form-label" })
+
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+
+            </div>
+        </div>
+        <div class="row g-2">
+            @Html.LabelFor(model => model.CategroyImage, new { @class = "form-label" })
+            <input class="form-control" type="file" id="formFile" accept="image/gif, image/jpeg, image/png" >
+            @if (Model.CategroyImage != null)
+            {
+                <img id="ViewImage" class="card-img-top" src="@Url.Content(@Model.CategroyImage)">
+            }
+            else {
+                 <img id="ViewImage" class="card-img-top" src="">
+            }
+
         </div>
     </div>
-    <div class="row g-2">
-        @Html.LabelFor(model => model.CategroyImage, new { @class = "form-label" })
-        <input class="form-control" type="file" id="formFile" accept="image/gif, image/jpeg, image/png">
-        <img id="ViewImage" class="card-img-top" src="">
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+            Close
+        </button>
+        <button id="SaveButton" type="button" class="btn btn-primary">儲存</button>
     </div>
-</div>
-<div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-        Close
-    </button>
-    <button id="SaveButton" type="button" class="btn btn-primary">儲存</button>
-</div>
-<div class="errorDiv">
+    <div class="errorDiv">
 
-</div>
+    </div>
 
-<script>
+    <script>
     $("#formFile").change(function () {
         readURL(this);
     });
@@ -52,9 +71,11 @@
 
 
         var formdata = new FormData();
+        var CategoryId = $("#CategoryId").val();
         var name = $("#Name").val();
         var CategroyImage = $("#formFile")[0].files[0];
 
+        formdata.append("Id", CategoryId);
         formdata.append("Name", name);
         formdata.append("UpImage", CategroyImage);
 
@@ -75,4 +96,5 @@
         })
     })
 
-</script>
+    </script>
+}

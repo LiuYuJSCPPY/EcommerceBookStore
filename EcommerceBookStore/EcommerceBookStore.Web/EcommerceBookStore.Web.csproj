@@ -203,6 +203,7 @@
     <Content Include="Areas\Dashboard\Views\Categories\Edit.cshtml" />
     <Content Include="Areas\Dashboard\Views\Categories\Index.cshtml" />
     <Content Include="Areas\Dashboard\Views\Categories\_Action.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Categories\_Delete.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
