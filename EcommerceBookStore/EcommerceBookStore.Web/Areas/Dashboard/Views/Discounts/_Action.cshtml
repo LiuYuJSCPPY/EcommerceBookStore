@@ -18,6 +18,7 @@
     </div>
     <div class="modal-body">
         <form id="ActionForm">
+            <input type="hidden" id="Did" value="@Model.Id">
             <div class="row mb-3">
                 @Html.LabelFor(model => model.Name, new { @class = "col-sm-2 col-form-label" })
 
@@ -108,11 +109,13 @@
     $("#SaveBtn").click(function () {
 
         var Discrount = new FormData();
+        var DId = $("#Did").val();
         var DName = $("#Name").val();
         var DPreceint = $("#Discount_Preceint").val();
         var DDesc = $("#Desc").val();
         var DIsActival = $("#IsActival").val();
         var DFIle = $("#ImageFile")[0].files[0];
+        Discrount.append("Id", DId);
         Discrount.append("Name", DName);
         Discrount.append("Desc", DDesc);
         Discrount.append("Discount_Preceint", DPreceint);

@@ -108,15 +108,15 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
             }
 
 
-                if (Result)
-                {
-                    json.Data = new { Success = true };
-                }
-                else
-                {
-                    json.Data = new { Success = false, Message = "上傳失敗" };
+            if (Result)
+            {
+                json.Data = new { Success = true };
+            }
+            else
+            {
+                json.Data = new { Success = false, Message = "上傳失敗" };
 
-                }
+            }
 
                 return json;
 
@@ -147,9 +147,10 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
 
 
             var DeleteCategory = categoriesService.GetCategoryByID(id);
-            if (System.IO.File.Exists(DeleteCategory.CategroyImage))
+            string DeleteImage = Request.MapPath(DeleteCategory.CategroyImage.ToString());
+            if (System.IO.File.Exists(DeleteImage))
             {
-                System.IO.File.Delete(DeleteCategory.CategroyImage);
+                System.IO.File.Delete(DeleteImage);
             }
 
             Result = categoriesService.DeleteCategory(id);

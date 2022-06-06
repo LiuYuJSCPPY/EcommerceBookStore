@@ -65,7 +65,7 @@
                                 <div class="dropdown-menu" style="">
                                     <button class="data-btn dropdown-item" data-herf="@Url.Action("Action","Discounts",new { Id = DiscountItem.Id })" data-bs-toggle="modal" data-bs-target="#exLargeModal"><i class="bx bx-edit-alt me-1"></i> 更新</button>
 
-                                    <button class="data-btn dropdown-item" data-herf="" data-bs-toggle="modal" data-bs-target="#exLargeModal"><i class="bx bx-trash me-1"></i> 刪除</button>
+                                    <button class="data-btn dropdown-item" data-herf="@Url.Action("Delete","Discounts",new { Id = DiscountItem.Id })" data-bs-toggle="modal" data-bs-target="#exLargeModal"><i class="bx bx-trash me-1"></i> 刪除</button>
                                 </div>
                             </div>
                         </td>

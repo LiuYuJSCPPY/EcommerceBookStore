@@ -170,6 +170,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Dashboard\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\DiscountsController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\ProudctsController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
     <Compile Include="Areas\Dashboard\ViewModel\CategoryViewModel.cs" />
     <Compile Include="Areas\Dashboard\ViewModel\DiscountViewModel.cs" />
@@ -209,6 +210,12 @@
     <Content Include="Areas\Dashboard\Views\Discounts\Index.cshtml" />
     <Content Include="Areas\Dashboard\Views\Discounts\_Details.cshtml" />
     <Content Include="Areas\Dashboard\Views\Discounts\_Action.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Discounts\_Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Proudcts\Create.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Proudcts\Delete.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Proudcts\Details.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Proudcts\Edit.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Proudcts\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
