@@ -8,18 +8,21 @@ using System.Web;
 using System.Web.Mvc;
 using EcommerceBookStore.Data;
 using EcommerceBookStore.Model;
+using EcommerceBookStore.Server;
+using EcommerceBookStore.Web.Areas.Dashboard.ViewModel;
 
 namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
 {
     public class ProudctsController : Controller
     {
         private EBookStoreContext db = new EBookStoreContext();
-
+        private ProudctsService proudctsService = new ProudctsService();
         // GET: Dashboard/Proudcts
         public ActionResult Index()
         {
-            var proudcts = db.proudcts.Include(p => p.Category).Include(p => p.discount);
-            return View(proudcts.ToList());
+            ProudctListViewModel ProuctsListModel = new ProudctListViewModel();
+            ProuctsListModel.proudcts = proudctsService.GetAllProudcts();
+            return View(ProuctsListModel);
         }
 
         // GET: Dashboard/Proudcts/Details/5
@@ -37,6 +40,26 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
             return View(proudct);
         }
 
+
+        public ActionResult Action()
+        {
+            ProudctViewModel model = new ProudctViewModel();
+
+            model.Category = db.Categories.Select(Category=> new SelectListItem
+            {
+                Text = model.Name,
+                Value = Category.Id.ToString()
+            }).ToList();
+
+            model.Discount = db.discounts.Select(Discount => new SelectListItem
+            {
+                Text = Discount.Name,
+                Value = Discount.Id.ToString()
+            }).ToList();
+
+
+            return PartialView("_Action",model);
+        }
         // GET: Dashboard/Proudcts/Create
         public ActionResult Create()
         {

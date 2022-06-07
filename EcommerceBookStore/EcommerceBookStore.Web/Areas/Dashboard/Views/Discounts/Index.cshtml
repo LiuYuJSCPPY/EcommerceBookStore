@@ -58,6 +58,9 @@
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> @DiscountItem.Create_at</td>
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> @DiscountItem.Modified_at</td>
                         <td>
+                            <button class="data-btn dropdown-item" data-herf="" data-bs-toggle="modal" data-bs-target="#fullscreenModal"><i class="bx bx-edit-alt me-1"></i> 更新</button>
+                        </td>
+                        <td>
                             <div class="dropdown">
                                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bx bx-dots-vertical-rounded"></i>
@@ -91,6 +94,14 @@
 </div>
 
 
+
+<div class="modal fade " id="fullscreenModal" tabindex="-1" style="display: block;" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-fullscreen" role="document">
+        <div class="modal-content">
+            
+        </div>
+    </div>
+</div>
 
 
 <script>

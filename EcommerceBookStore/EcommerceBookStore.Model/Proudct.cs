@@ -23,7 +23,7 @@ namespace EcommerceBookStore.Model
         public Category Category { get; set; }
 
         public int price { get; set; }
-        public int DiscountId { get; set; }
+        public int? DiscountId { get; set; }
         public Discount discount { get; set; }
         public DateTime Create_at { get; set; }
         public DateTime Modified_at { get; set; }

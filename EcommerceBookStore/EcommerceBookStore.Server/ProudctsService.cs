@@ -10,7 +10,7 @@ namespace EcommerceBookStore.Server
 {
     public class ProudctsService
     {
-        public IEnumerable<Proudct> GetAllProudcts()
+        public List<Proudct> GetAllProudcts()
         {
             var dbContext = new EBookStoreContext();
 

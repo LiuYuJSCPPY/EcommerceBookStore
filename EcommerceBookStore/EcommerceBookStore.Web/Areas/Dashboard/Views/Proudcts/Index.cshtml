@@ -1,99 +1,136 @@
-﻿@model IEnumerable<EcommerceBookStore.Model.Proudct>
+﻿@model EcommerceBookStore.Web.Areas.Dashboard.ViewModel.ProudctListViewModel
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>商品</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Category.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.discount.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Author)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PushlingHouse)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PubshDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.desc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProudctInventory)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Create_at)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Modified_at)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProudctImage)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Category.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.discount.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Author)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PushlingHouse)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PubshDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.desc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProudctInventory)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Create_at)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Modified_at)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProudctImage)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
 
-</table>
+
+<div class="card">
+    <div class="card-header">
+        <ul class="nav nav-pills" role="tablist">
+            <li class="nav-item">
+                <button id="ActionForm" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exLargeModal">
+                    Extra Large
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="table-responsive text-nowrap">
+        <table class="table">
+            <thead>
+                <tr>
+
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Author)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.discount.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PushlingHouse)
+                    </th>
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.desc)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProudctInventory)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProudctImage)
+                    </th>
+                    <th></th>
+
+
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                @foreach (var DiscountItem in Model.proudcts)
+                {
+                    <tr>
+
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@DiscountItem.Name</strong></td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> @DiscountItem.Author</td>
+
+                        @if (DiscountItem.DiscountId != null && DiscountItem.discount.IsActival)
+                        {
+                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> @DiscountItem.discount.Name</td>
+                        }
+                        else
+                        {
+                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i> 尚未有活動</td>
+                        }
+
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@DiscountItem.PushlingHouse </strong></td>
+                        @if (DiscountItem.desc != null)
+                        {
+                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i>有</td>
+                        }
+                        else
+                        {
+                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i>無</td>
+                        }
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> @DiscountItem.ProudctInventory</td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> @DiscountItem.price</td>
+                        <td>
+                            <img src="@Url.Content(DiscountItem.ProudctImage)" alt="collapse-image" height="125" class="me-4 mb-sm-0 mb-2">
+                        </td>
+                        <td>
+                            <button class="data-btn dropdown-item" data-herf="" data-bs-toggle="modal" data-bs-target="#fullscreenModal"><i class="bx bx-edit-alt me-1"></i> 更新</button>
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu" style="">
+                                    <button class="data-btn dropdown-item" data-herf="@Url.Action("Action","Discounts",new { Id = DiscountItem.Id })" data-bs-toggle="modal" data-bs-target="#exLargeModal"><i class="bx bx-edit-alt me-1"></i> 更新</button>
+
+                                    <button class="data-btn dropdown-item" data-herf="@Url.Action("Delete","Discounts",new { Id = DiscountItem.Id })" data-bs-toggle="modal" data-bs-target="#exLargeModal"><i class="bx bx-trash me-1"></i> 刪除</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                }
+
+            </tbody>
+
+
+        </table>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="exLargeModal" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+           
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $("#ActionForm").click(function () {
+        $.ajax({
+            url: "@Url.Action("Action", "Proudcts")",
+            type: "get",
+        }).done(function (respone) {
+            $("#exLargeModal .modal-content").html(respone)
+        });
+    });
+</script>
