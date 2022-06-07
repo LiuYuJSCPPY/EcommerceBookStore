@@ -16,5 +16,13 @@ namespace EcommerceBookStore.Server
 
             return dbContext.proudcts.Include(model => model.Category).Include(model => model.discount).ToList();
         }
+
+
+        public bool SaveProudct(Proudct proudct)
+        {
+            var dbContext = new EBookStoreContext();
+            dbContext.proudcts.Add(proudct);
+            return dbContext.SaveChanges() > 0;
+        }
     }
 }

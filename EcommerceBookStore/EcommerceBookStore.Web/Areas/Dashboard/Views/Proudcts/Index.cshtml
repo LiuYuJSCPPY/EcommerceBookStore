@@ -13,8 +13,8 @@
     <div class="card-header">
         <ul class="nav nav-pills" role="tablist">
             <li class="nav-item">
-                <button id="ActionForm" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exLargeModal">
-                    Extra Large
+                <button id="ActionForm" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModal">
+                    新增產品
                 </button>
             </li>
         </ul>
@@ -96,9 +96,9 @@
                                     <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
                                 <div class="dropdown-menu" style="">
-                                    <button class="data-btn dropdown-item" data-herf="@Url.Action("Action","Discounts",new { Id = DiscountItem.Id })" data-bs-toggle="modal" data-bs-target="#exLargeModal"><i class="bx bx-edit-alt me-1"></i> 更新</button>
+                                    <button class="data-btn dropdown-item"  data-bs-toggle="modal" data-bs-target="#exLargeModal"><i class="bx bx-edit-alt me-1"></i> 更新</button>
 
-                                    <button class="data-btn dropdown-item" data-herf="@Url.Action("Delete","Discounts",new { Id = DiscountItem.Id })" data-bs-toggle="modal" data-bs-target="#exLargeModal"><i class="bx bx-trash me-1"></i> 刪除</button>
+                                    <button class="data-btn dropdown-item" data-bs-toggle="modal" data-bs-target="#exLargeModal"><i class="bx bx-trash me-1"></i> 刪除</button>
                                 </div>
                             </div>
                         </td>
@@ -115,10 +115,10 @@
 
 
 
-<div class="modal fade" id="exLargeModal" tabindex="-1" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
+<div class="modal fade" id="largeModal" tabindex="-1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-           
+            
         </div>
     </div>
 </div>
@@ -130,7 +130,7 @@
             url: "@Url.Action("Action", "Proudcts")",
             type: "get",
         }).done(function (respone) {
-            $("#exLargeModal .modal-content").html(respone)
+            $("#largeModal .modal-content").html(respone)
         });
     });
 </script>

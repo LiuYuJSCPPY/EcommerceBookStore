@@ -106,6 +106,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proudct.cs" />
     <Compile Include="BookStoreUser.cs" />
+    <Compile Include="ProudctCommit.cs" />
+    <Compile Include="ProudctImages.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -28,6 +28,7 @@ namespace EcommerceBookStore.Data
         public DbSet<Order> orders { get; set; }
         public DbSet<OrderItem> orderItems { get; set; }
         public DbSet<Proudct> proudcts { get; set; }
-        
+        public DbSet<ProudctImages> proudctImages { get; set; }
+        public DbSet<ProudctCommit> proudctCommits { get; set; }
     }
 }

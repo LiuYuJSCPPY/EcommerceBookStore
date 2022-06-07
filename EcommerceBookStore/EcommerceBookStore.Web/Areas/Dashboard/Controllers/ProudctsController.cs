@@ -10,6 +10,7 @@ using EcommerceBookStore.Data;
 using EcommerceBookStore.Model;
 using EcommerceBookStore.Server;
 using EcommerceBookStore.Web.Areas.Dashboard.ViewModel;
+using System.IO;
 
 namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
 {
@@ -60,6 +61,55 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
 
             return PartialView("_Action",model);
         }
+
+        [HttpPost]
+        public JsonResult Action(Proudct proudct ,HttpPostedFileBase ProudctImage)
+        {
+            JsonResult json = new JsonResult();
+            bool Result = false;
+
+            string FilePath = Server.MapPath("~/Image/Proudct/");
+            if (!Directory.Exists(FilePath))
+            {
+                Directory.CreateDirectory(FilePath);
+            }
+
+            string FileName = Path.GetFileName(ProudctImage.FileName);
+            string _FileName = DateTime.Now.ToString("yyyymmssfff") + FileName;
+            string Extesion = Path.GetExtension(ProudctImage.FileName);
+            string SaveFilePath = Path.Combine(FilePath, _FileName);
+            string DbSaveFilePath = "~/Image/Proudct/" + _FileName;
+            
+
+
+
+            if(Extesion.ToLower() == ".jpg" || Extesion.ToLower() == ".jepg" || Extesion.ToLower() == ".png")
+            {
+                ProudctImage.SaveAs(SaveFilePath);
+                proudct.ProudctImage = DbSaveFilePath;
+                proudct.Create_at = DateTime.Now;
+                proudct.Modified_at = DateTime.Now;
+                Result = proudctsService.SaveProudct(proudct);
+                
+            }
+
+
+            if (Result)
+            {
+                json.Data = new {Success = true};
+            }
+            else
+            {
+                json.Data = new { Success = false, Message = "上傳失敗" };
+            }
+
+
+            return json;
+        }
+
+
+
+
         // GET: Dashboard/Proudcts/Create
         public ActionResult Create()
         {
