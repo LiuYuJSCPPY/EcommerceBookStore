@@ -42,13 +42,31 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
         }
 
 
-        public ActionResult Action()
+        public ActionResult Action(int? Id)
         {
             ProudctViewModel model = new ProudctViewModel();
 
+          
+
+            if(Id.HasValue)
+            {  
+                var EditProudct = proudctsService.GetProudctsById(Id.Value);
+                model.Id = EditProudct.Id;
+                model.Name = EditProudct.Name;
+                model.Author = EditProudct.Author;
+                model.PushlingHouse = EditProudct.PushlingHouse;
+                model.PubshDate = EditProudct.PubshDate;
+                model.desc = EditProudct.desc;
+                model.ProudctInventory = EditProudct.ProudctInventory;
+                model.CategoryId = EditProudct.CategoryId;
+                model.price = EditProudct.price;
+                model.DiscountId = EditProudct.DiscountId;
+                model.ProudctImage = EditProudct.ProudctImage;
+            }
+
             model.Category = db.Categories.Select(Category=> new SelectListItem
             {
-                Text = model.Name,
+                Text = Category.Name,
                 Value = Category.Id.ToString()
             }).ToList();
 
@@ -63,7 +81,7 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
         }
 
         [HttpPost]
-        public JsonResult Action(Proudct proudct ,HttpPostedFileBase ProudctImage)
+        public JsonResult Action([Bind(Include = "Id,Name,Author,PushlingHouse,PubshDate,desc,ProudctInventory,CategoryId,price,DiscountId")]Proudct proudct ,HttpPostedFileBase ProudctImage,int? Id)
         {
             JsonResult json = new JsonResult();
             bool Result = false;
@@ -79,19 +97,39 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
             string Extesion = Path.GetExtension(ProudctImage.FileName);
             string SaveFilePath = Path.Combine(FilePath, _FileName);
             string DbSaveFilePath = "~/Image/Proudct/" + _FileName;
-            
 
 
 
-            if(Extesion.ToLower() == ".jpg" || Extesion.ToLower() == ".jepg" || Extesion.ToLower() == ".png")
+            if (Id.HasValue)
             {
-                ProudctImage.SaveAs(SaveFilePath);
-                proudct.ProudctImage = DbSaveFilePath;
-                proudct.Create_at = DateTime.Now;
-                proudct.Modified_at = DateTime.Now;
-                Result = proudctsService.SaveProudct(proudct);
-                
+                var dbEidtProudct = proudctsService.GetProudctsById(Id.Value);
+                var EditImage = Request.MapPath(dbEidtProudct.ProudctImage.ToString());
+
+
+                if (System.IO.File.Exists(EditImage))
+                {
+                    System.IO.File.Delete(EditImage);
+                    ProudctImage.SaveAs(SaveFilePath);
+                    proudct.ProudctImage = DbSaveFilePath;
+                    proudct.Create_at = dbEidtProudct.Create_at;
+                    proudct.Modified_at = DateTime.Now;
+                    Result = proudctsService.EditProudct(proudct);
+                }
             }
+            else
+            {
+                if(Extesion.ToLower() == ".jpg" || Extesion.ToLower() == ".jepg" || Extesion.ToLower() == ".png")
+                {
+                    ProudctImage.SaveAs(SaveFilePath);
+                    proudct.ProudctImage = DbSaveFilePath;
+                    proudct.Create_at = DateTime.Now;
+                    proudct.Modified_at = DateTime.Now;
+                    Result = proudctsService.SaveProudct(proudct);
+                
+                }
+            }
+
+            
 
 
             if (Result)
@@ -110,92 +148,50 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
 
 
 
-        // GET: Dashboard/Proudcts/Create
-        public ActionResult Create()
-        {
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name");
-            ViewBag.DiscountId = new SelectList(db.discounts, "Id", "Name");
-            return View();
-        }
-
-        // POST: Dashboard/Proudcts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Author,PushlingHouse,PubshDate,desc,ProudctInventory,CategoryId,price,DiscountId,Create_at,Modified_at,ProudctImage")] Proudct proudct)
-        {
-            if (ModelState.IsValid)
-            {
-                db.proudcts.Add(proudct);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", proudct.CategoryId);
-            ViewBag.DiscountId = new SelectList(db.discounts, "Id", "Name", proudct.DiscountId);
-            return View(proudct);
-        }
-
-        // GET: Dashboard/Proudcts/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Proudct proudct = db.proudcts.Find(id);
-            if (proudct == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", proudct.CategoryId);
-            ViewBag.DiscountId = new SelectList(db.discounts, "Id", "Name", proudct.DiscountId);
-            return View(proudct);
-        }
-
-        // POST: Dashboard/Proudcts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Author,PushlingHouse,PubshDate,desc,ProudctInventory,CategoryId,price,DiscountId,Create_at,Modified_at,ProudctImage")] Proudct proudct)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(proudct).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.CategoryId = new SelectList(db.Categories, "Id", "Name", proudct.CategoryId);
-            ViewBag.DiscountId = new SelectList(db.discounts, "Id", "Name", proudct.DiscountId);
-            return View(proudct);
-        }
-
+      
         // GET: Dashboard/Proudcts/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int Id)
         {
-            if (id == null)
+            if (Id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Proudct proudct = db.proudcts.Find(id);
-            if (proudct == null)
+            Proudct DeleteProudct = proudctsService.GetProudctsById(Id);
+            if (DeleteProudct == null)
             {
                 return HttpNotFound();
             }
-            return View(proudct);
+            return PartialView("_Delete", DeleteProudct);
         }
 
         // POST: Dashboard/Proudcts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public JsonResult DeleteConfirmed(int Id)
         {
-            Proudct proudct = db.proudcts.Find(id);
-            db.proudcts.Remove(proudct);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            JsonResult json = new JsonResult();
+            bool Result = false;
+            Proudct proudct = db.proudcts.Find(Id);
+            if(proudct.ProudctImage != null)
+            {
+                string DeleteImage = Request.MapPath(proudct.ProudctImage.ToString());
+                if (System.IO.File.Exists(DeleteImage))
+                {
+                    System.IO.File.Delete(DeleteImage);
+                }
+            }
+
+            Result = proudctsService.DeleteProudct(Id);
+
+            if (Result)
+            {
+                json.Data = new { Success = true };
+            }
+            else
+            {
+                json.Data = new { Success = false, Message = "刪除失敗" };
+            }
+
+            return json;
         }
 
         protected override void Dispose(bool disposing)

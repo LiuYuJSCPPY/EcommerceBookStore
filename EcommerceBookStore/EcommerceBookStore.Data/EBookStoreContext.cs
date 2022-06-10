@@ -30,5 +30,7 @@ namespace EcommerceBookStore.Data
         public DbSet<Proudct> proudcts { get; set; }
         public DbSet<ProudctImages> proudctImages { get; set; }
         public DbSet<ProudctCommit> proudctCommits { get; set; }
+
+        public System.Data.Entity.DbSet<EcommerceBookStore.Model.BookStoreUser> BookStoreUsers { get; set; }
     }
 }

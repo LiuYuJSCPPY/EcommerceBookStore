@@ -13,7 +13,7 @@
     <div class="card-header">
         <ul class="nav nav-pills" role="tablist">
             <li class="nav-item">
-                <button id="ActionForm" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#largeModal">
+                <button id="ActionForm" type="button" class="data-btn btn btn-primary" data-herf="@Url.Action("Action","Proudcts")" data-bs-toggle="modal" data-bs-target="#largeModal">
                     新增產品
                 </button>
             </li>
@@ -88,7 +88,7 @@
                             <img src="@Url.Content(DiscountItem.ProudctImage)" alt="collapse-image" height="125" class="me-4 mb-sm-0 mb-2">
                         </td>
                         <td>
-                            <button class="data-btn dropdown-item" data-herf="" data-bs-toggle="modal" data-bs-target="#fullscreenModal"><i class="bx bx-edit-alt me-1"></i> 更新</button>
+                            <button class="data-btn dropdown-item" data-herf="" data-bs-toggle="modal" data-bs-target="#fullscreenModal"><i class="bx bx-edit-alt me-1"></i> 預覽</button>
                         </td>
                         <td>
                             <div class="dropdown">
@@ -96,9 +96,10 @@
                                     <i class="bx bx-dots-vertical-rounded"></i>
                                 </button>
                                 <div class="dropdown-menu" style="">
-                                    <button class="data-btn dropdown-item"  data-bs-toggle="modal" data-bs-target="#exLargeModal"><i class="bx bx-edit-alt me-1"></i> 更新</button>
+                                  
+                                    <button class="data-btn dropdown-item" data-herf="@Url.Action("Action", "Proudcts", new { Id = DiscountItem.Id })" data-bs-toggle="modal" data-bs-target="#largeModal"><i class="bx bx-edit-alt me-1"></i> 更新</button>
 
-                                    <button class="data-btn dropdown-item" data-bs-toggle="modal" data-bs-target="#exLargeModal"><i class="bx bx-trash me-1"></i> 刪除</button>
+                                    <button class="data-btn dropdown-item" data-herf="@Url.Action("Action", "Proudcts", new { Id = DiscountItem.Id })" data-bs-toggle="modal" data-bs-target="#exLargeModal"><i class="bx bx-trash me-1"></i> 刪除</button>
                                 </div>
                             </div>
                         </td>
@@ -125,9 +126,9 @@
 
 
 <script>
-    $("#ActionForm").click(function () {
+    $(".data-btn").click(function () {
         $.ajax({
-            url: "@Url.Action("Action", "Proudcts")",
+            url: $(this).attr("data-herf"),
             type: "get",
         }).done(function (respone) {
             $("#largeModal .modal-content").html(respone)

@@ -6,6 +6,7 @@
 </div>
 <div class="modal-body">
     <div class="row g-2">
+        @Html.HiddenFor(d => d.Id)
         <div class="col mb-0">
             @Html.LabelFor(d => d.Name, new { @class = "form-label" })
             @Html.TextBoxFor(d => d.Name, new { @class = "form-control" })
@@ -30,7 +31,9 @@
         </div>
         <div class="col mb-0">
             @Html.LabelFor(d => d.PubshDate, new { @class = "form-label" })
-            <input type="datetime" id="dobExLarge" class="form-control" placeholder="DD / MM / YY">
+            @Html.TextBoxFor(model => model.PubshDate, new { @class = "form-control PushData" } )
+           
+
         </div>
     </div>
 
@@ -97,16 +100,57 @@
         ReadImage.readAsDataURL(input.files[0]);
     }
 
+    $(document).ready(function () {
+        $(".PushData").datepicker({
+            dateFormat: "yy-MM-dd",
+            changeMonth: true,
+            changeYear: true,
+            sideBySide: true,
+            controlType: "select",
+        });
+    });
 
     $("#Savebtn").click(function () {
+        var dbForm = new FormData();
+        var dbId = $("#Id").val();
+        var dbName = $("#Name").val();
+        var dbAuthor = $("#Author").val();
+        var dbCategoryId = $("#CategoryId").val();
+        var dbPushlingHouse = $("#PushlingHouse").val();
+        var dbPubshDate = $("#PubshDate").val();
+        var dbprice = $("#price").val();
+        var dbProudctInventory = $("#ProudctInventory").val();
+        var dbDiscountId = $("#DiscountId").val();
+        var dbdesc = $("#desc").val();
+        var dbImageFile = $("#ImageFile")[0].files[0];
 
-        var 
-
+        dbForm.append("Id", dbId);
+        dbForm.append("Name", dbName);
+        dbForm.append("Author", dbAuthor);
+        dbForm.append("CategoryId", dbCategoryId);
+        dbForm.append("PushlingHouse", dbPushlingHouse);
+        dbForm.append("PubshDate", dbPubshDate);
+        dbForm.append("Price", dbprice);
+        dbForm.append("ProudctInventory", dbProudctInventory);
+        dbForm.append("DiscountId", dbDiscountId);
+        dbForm.append("desc", dbdesc);
+        dbForm.append("ProudctImage", dbImageFile);
+        
         $.ajax({
             url: "@Url.Action("Action", "Proudcts")",
             type: "post",
-
+            processData: false,
+            contentType: false,
+            data: dbForm,
+        }).done(function (respone) {
+            debugger;
+            if (respone.Success) {
+                location.reload();
+            }
         })
-    })
+    });
+
+
+
 
 </script>
