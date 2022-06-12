@@ -265,6 +265,7 @@
     <Content Include="Areas\Dashboard\Views\Proudcts\Details.cshtml" />
     <Content Include="Areas\Dashboard\Views\Proudcts\Index.cshtml" />
     <Content Include="Areas\Dashboard\Views\Proudcts\_Action.cshtml" />
+    <Content Include="Image\User\blank-profile-picture-g88a2086e1_640.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -273,6 +274,7 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\Dashboard\Views\Proudcts\_Delete.cshtml" />
     <Content Include="Areas\Dashboard\Views\User\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\User\_Action.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />

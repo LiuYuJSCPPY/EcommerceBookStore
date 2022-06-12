@@ -11,12 +11,19 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.ViewModel
 {
     public class UserListViewModel
     {
-        public string Id { get; set; }
-        public string UserName { get; set; } 
+
+        [DisplayName("使用者名稱")]
+        public string UserName { get; set; }
+
+        [DisplayName("姓")]
         public string FirstName { get; set; }
+        [DisplayName("名")]
         public string LastName { get; set; }
+        [DisplayName("地址")]
         public string Address { get; set; }
+        [DisplayName("電話")]
         public string telephone { get; set; }
+        [DisplayName("圖片")]
         public string UserImage { get; set; }
         public IEnumerable<BookStoreUser> Users { get; set; }
 
@@ -24,12 +31,20 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.ViewModel
 
     public class UserViewModel
     {
+        [DisplayName("使用者名稱")]
+        public string UserName { get; set; }
+        [DisplayName("信箱")]
+        public string Eamil { get; set; }
+
+        [DisplayName("姓")]
         public string FirstName { get; set; }
+        [DisplayName("名")]
         public string LastName { get; set; }
+        [DisplayName("地址")]
         public string Address { get; set; }
+        [DisplayName("電話")]
         public string telephone { get; set; }
+        [DisplayName("圖片")]
         public string UserImage { get; set; }
-        public DateTime Create_at { get; set; }
-        public DateTime Modified_at { get; set; }
     }
 }
