@@ -8,6 +8,9 @@ using Owin;
 using EcommerceBookStore.Web.Models;
 using EcommerceBookStore.Data;
 using EcommerceBookStore.Model;
+using EcommerceBookStore.Server;
+
+
 namespace EcommerceBookStore.Web
 {
     public partial class Startup
@@ -17,8 +20,8 @@ namespace EcommerceBookStore.Web
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
             app.CreatePerOwinContext(EBookStoreContext.Create);
-            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
-            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
+            app.CreatePerOwinContext<EBookStoreUserManager>(EBookStoreUserManager.Create);
+            app.CreatePerOwinContext<EBookStoreSignInManager>(EBookStoreSignInManager.Create);
 
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
@@ -31,7 +34,7 @@ namespace EcommerceBookStore.Web
                 {
                     // Enables the application to validate the security stamp when the user logs in.
                     // This is a security feature which is used when you change a password or add an external login to your account.  
-                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, BookStoreUser>(
+                    OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<EBookStoreUserManager, BookStoreUser>(
                         validateInterval: TimeSpan.FromMinutes(30),
                         regenerateIdentity: (manager, user) => user.GenerateUserIdentityAsync(manager))
                 }

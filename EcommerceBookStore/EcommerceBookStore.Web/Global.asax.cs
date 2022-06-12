@@ -15,7 +15,7 @@ namespace EcommerceBookStore.Web
     {
         protected void Application_Start()
         {
-            //Database.SetInitializer(new DropCreateDatabaseAlways<EBookStoreContext>());
+            Database.SetInitializer(new DropCreateDatabaseAlways<EBookStoreContext>());
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

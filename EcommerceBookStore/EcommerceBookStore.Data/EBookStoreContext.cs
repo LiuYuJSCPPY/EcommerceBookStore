@@ -12,7 +12,7 @@ namespace EcommerceBookStore.Data
     public class EBookStoreContext : IdentityDbContext<BookStoreUser>
     {
         public EBookStoreContext()
-            : base("EBookStoreContext", throwIfV1Schema: false)
+            : base("EBookStoreContext")
         {
         }
 
@@ -31,6 +31,6 @@ namespace EcommerceBookStore.Data
         public DbSet<ProudctImages> proudctImages { get; set; }
         public DbSet<ProudctCommit> proudctCommits { get; set; }
 
-        public System.Data.Entity.DbSet<EcommerceBookStore.Model.BookStoreUser> BookStoreUsers { get; set; }
+        
     }
 }

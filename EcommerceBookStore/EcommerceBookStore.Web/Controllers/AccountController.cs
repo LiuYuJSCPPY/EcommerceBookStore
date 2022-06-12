@@ -51,7 +51,9 @@ namespace EcommerceBookStore.Web.Controllers
             {
                 _userManager = value;
             }
+
         }
+        
 
         //
         // GET: /Account/Login
