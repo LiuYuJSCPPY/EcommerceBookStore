@@ -7,30 +7,32 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using EcommerceBookStore.Web.Models;
+using EcommerceBookStore.Server;
+
 
 namespace EcommerceBookStore.Web.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
-        private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
+        private EBookStoreSignInManager _signInManager;
+        private EBookStoreUserManager _userManager;
 
         public ManageController()
         {
         }
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public ManageController(EBookStoreUserManager userManager, EBookStoreSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
         }
 
-        public ApplicationSignInManager SignInManager
+        public EBookStoreSignInManager SignInManager
         {
             get
             {
-                return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+                return _signInManager ?? HttpContext.GetOwinContext().Get<EBookStoreSignInManager>();
             }
             private set 
             { 
@@ -38,11 +40,11 @@ namespace EcommerceBookStore.Web.Controllers
             }
         }
 
-        public ApplicationUserManager UserManager
+        public EBookStoreUserManager UserManager
         {
             get
             {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<EBookStoreUserManager>();
             }
             private set
             {

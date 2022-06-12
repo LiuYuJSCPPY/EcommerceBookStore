@@ -18,7 +18,7 @@ namespace EcommerceBookStore.Model
         public string telephone { get; set; }
         public string UserImage { get; set; }
         public DateTime Create_at { get; set; }
-        public DateTime Modified_at { get; set; }
+     
 
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<BookStoreUser> manager)

@@ -67,10 +67,16 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
 
         public ActionResult Action(string Id)
         {
-            UserViewModel Edit = new UserViewModel();
+            UserViewModel Edituser = new UserViewModel();
             if(Id != null)
             {
-
+                BookStoreUser OldUser = UserManager.FindById(Id);
+                Edituser.FirstName = OldUser.FirstName;
+                Edituser.LastName = OldUser.LastName;
+                Edituser.Address = OldUser.Address;
+                Edituser.telephone = OldUser.telephone;
+                Edituser.UserImage = OldUser.UserImage;
+               
             }
 
 

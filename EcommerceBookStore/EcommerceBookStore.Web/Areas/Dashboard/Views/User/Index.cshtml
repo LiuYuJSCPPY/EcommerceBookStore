@@ -2,4 +2,92 @@
 @{
     ViewBag.Title = "Index";
 }
-<h1>User</h1>
+
+
+<h2>商品</h2>
+
+
+
+    <div class="table-responsive text-nowrap">
+        <table class="table">
+            <thead>
+                <tr>
+
+
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.telephone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserImage)
+                    </th>
+
+                    <th></th>
+
+
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                @foreach (var user in Model.Users)
+                {
+                    <tr>
+
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@user.Id</strong></td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> @user.UserName</td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> @user.FirstName</td>
+
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> @user.LastName</td>
+
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> @user.Address</td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> @user.telephone</td>
+
+                        @if (user.UserImage != null)
+                        {
+                            <td>
+                                <img src="@Url.Content(user.UserImage)" alt="collapse-image" height="125" class="me-4 mb-sm-0 mb-2">
+                            </td>
+
+                        }
+                        else
+                        {
+                            <td><i class="fab fa-angular fa-lg text-danger me-3"></i>無</td>
+                        }
+
+
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu" style="">
+
+                                    <button class="data-btn dropdown-item" data-herf="@Url.Action("Action", "Proudcts", new { Id = user.Id })" data-bs-toggle="modal" data-bs-target="#largeModal"><i class="bx bx-edit-alt me-1"></i> 更新</button>
+
+                                    <button class="data-btn dropdown-item" data-herf="@Url.Action("Action", "Proudcts", new { Id = user.Id })" data-bs-toggle="modal" data-bs-target="#exLargeModal"><i class="bx bx-trash me-1"></i> 刪除</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                }
+
+            </tbody>
+
+
+        </table>
+    </div>
+</div>
