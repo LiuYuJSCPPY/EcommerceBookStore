@@ -31,10 +31,11 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.ViewModel
 
     public class UserViewModel
     {
+        public string Id { get; set; }
         [DisplayName("使用者名稱")]
         public string UserName { get; set; }
         [DisplayName("信箱")]
-        public string Eamil { get; set; }
+        public string Email { get; set; }
 
         [DisplayName("姓")]
         public string FirstName { get; set; }

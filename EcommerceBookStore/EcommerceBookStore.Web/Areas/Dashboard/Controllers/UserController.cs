@@ -78,7 +78,8 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
                 Edituser.telephone = OldUser.telephone;
                 Edituser.UserImage = OldUser.UserImage;
                 Edituser.UserName = OldUser.UserName;
-                Edituser.Eamil = OldUser.Email;
+                Edituser.Email = OldUser.Email;
+                Edituser.Id = OldUser.Id;
             }
 
 
