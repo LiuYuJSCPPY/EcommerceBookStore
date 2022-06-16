@@ -149,5 +149,24 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
 
             return json;
         }
+
+        public ActionResult Delete(string Id)
+        {
+
+            UserViewModel model = new UserViewModel();
+            if (Id != null)
+            {
+                BookStoreUser OldUser = UserManager.FindById(Id);
+                model.FirstName = OldUser.FirstName;
+                model.LastName = OldUser.LastName;
+                model.Address = OldUser.Address;
+                model.telephone = OldUser.telephone;
+                model.UserImage = OldUser.UserImage;
+                model.UserName = OldUser.UserName;
+                model.Email = OldUser.Email;
+                model.Id = OldUser.Id;
+            }
+            return PartialView("_Delete",model);
+        }
     }
 }

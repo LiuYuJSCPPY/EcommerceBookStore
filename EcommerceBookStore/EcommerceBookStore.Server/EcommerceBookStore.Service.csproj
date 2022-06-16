@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CartService.cs" />
     <Compile Include="CategoriesService.cs" />
     <Compile Include="DiscountService.cs" />
     <Compile Include="EBookStoreSignInManager.cs" />

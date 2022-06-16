@@ -14,9 +14,8 @@ namespace EcommerceBookStore.Model
         public string BookStoreUserId { get; set; }
         public BookStoreUser BookStoreUser { get; set; }
 
-        public int Total { get; set; }
-        public DateTime Create_at { get; set; }
-        public DateTime Modified_at { get; set; }
+        public int? Total { get; set; }
+       
 
         public ICollection<CartItem> cartItems  { get; set; }
     }

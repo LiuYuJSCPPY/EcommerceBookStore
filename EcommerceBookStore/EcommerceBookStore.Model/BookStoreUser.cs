@@ -27,6 +27,10 @@ namespace EcommerceBookStore.Model
             // Add custom user claims here
             return userIdentity;
         }
+
+        public Cart Cart { get; set; }
+        public Order order { get; set; }
+
     }
 
 }

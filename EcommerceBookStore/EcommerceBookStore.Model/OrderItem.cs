@@ -19,8 +19,7 @@ namespace EcommerceBookStore.Model
         public int ProudctId { get; set; }
         public Proudct proudct { get; set; }
 
-        public DateTime Create_at { get; set; }
-        public DateTime Modified_at { get; set; }
+     
 
 
     }
