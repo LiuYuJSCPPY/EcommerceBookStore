@@ -100,7 +100,7 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
 
 
 
-            if (Id.HasValue)
+            if (Id.Value > 0)
             {
                 var dbEidtProudct = proudctsService.GetProudctsById(Id.Value);
                 var EditImage = Request.MapPath(dbEidtProudct.ProudctImage.ToString());

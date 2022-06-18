@@ -28,9 +28,7 @@ namespace EcommerceBookStore.Model
             return userIdentity;
         }
 
-        public Cart Cart { get; set; }
-        public Order order { get; set; }
-
+    
     }
 
 }

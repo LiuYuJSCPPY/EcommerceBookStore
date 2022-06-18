@@ -26,7 +26,15 @@ namespace EcommerceBookStore.Web.Controllers
         }
 
 
+        public ActionResult CartPartelView()
+        {
+          
 
+            return PartialView("_CartPartelView");
+        }
+
+
+        [HttpPost]
         public JsonResult AddToCartItem(CartItem cartItem)
         {
             JsonResult json = new JsonResult();
