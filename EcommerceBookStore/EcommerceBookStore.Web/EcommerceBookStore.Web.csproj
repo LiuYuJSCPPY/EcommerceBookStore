@@ -183,6 +183,7 @@
     <Compile Include="Controllers\BookProudctController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProudctsController.cs" />
     <Compile Include="Controllers\ShoppingCartsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -339,6 +340,11 @@
     <Content Include="Views\ShoppingCarts\_CartPartelView.cshtml" />
     <Content Include="Views\BookProudct\Index.cshtml" />
     <Content Include="Views\BookProudct\Shop.cshtml" />
+    <Content Include="Views\Proudcts\Create.cshtml" />
+    <Content Include="Views\Proudcts\Delete.cshtml" />
+    <Content Include="Views\Proudcts\Details.cshtml" />
+    <Content Include="Views\Proudcts\Edit.cshtml" />
+    <Content Include="Views\Proudcts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

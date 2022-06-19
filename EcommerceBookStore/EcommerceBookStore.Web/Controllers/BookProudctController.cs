@@ -57,6 +57,21 @@ namespace EcommerceBookStore.Web.Controllers
             return View(model);
         }
 
+        public ActionResult ShopBookDetail(int? Id)
+        {
+            
+            Proudct proudct = _db.proudcts.Find(Id);
+            ShopBookDeatil shopBookDeatil = new ShopBookDeatil
+            {
+                Id = proudct.Id,
+                Name = proudct.Name,
+                Author = proudct.Author,
+                PushlingHouse = proudct.PushlingHouse,
+
+            };
+
+            return View();
+        }
 
     }
 }
