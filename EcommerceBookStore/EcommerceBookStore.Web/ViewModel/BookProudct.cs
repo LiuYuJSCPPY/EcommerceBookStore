@@ -5,6 +5,8 @@ using System.Web;
 using EcommerceBookStore.Model;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using PagedList;
+using PagedList.Mvc;
 
 namespace EcommerceBookStore.Web.ViewModel
 {
@@ -16,4 +18,14 @@ namespace EcommerceBookStore.Web.ViewModel
 
         public IEnumerable<Discount> discounts { get; set; }
     }
+
+    public class BookProudctPagation
+    {
+        public IPagedList<Proudct> proudcts { get; set; }
+
+        public IEnumerable<Category> categories { get; set; }
+
+        public IEnumerable<Discount> discounts { get; set; }
+    }
+
 }

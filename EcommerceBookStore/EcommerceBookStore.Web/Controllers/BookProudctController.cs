@@ -7,7 +7,7 @@ using EcommerceBookStore.Model;
 using EcommerceBookStore.Data;
 using EcommerceBookStore.Server;
 using EcommerceBookStore.Web.ViewModel;
-
+using PagedList;
 
 namespace EcommerceBookStore.Web.Controllers
 {
@@ -25,5 +25,38 @@ namespace EcommerceBookStore.Web.Controllers
 
             return View(model);
         }
+
+        public ActionResult Shop( string SearchBy,string SearchText,int? CategroyId,int? MinPrice ,int? PageNumber)
+        {
+            List<Proudct> proudcts = _db.proudcts.ToList();
+            BookProudctPagation model = new BookProudctPagation();
+            if(SearchBy == "Categroy")
+            {
+                proudcts = _db.proudcts.Where(x => x.Category.Name == SearchText || SearchText == null).ToList();
+            }
+            if(SearchBy == "Price")
+            {
+                proudcts = _db.proudcts.Where(p => p.price < MinPrice || MinPrice == null).ToList();
+            }
+            if(CategroyId > 0)
+            {
+                proudcts = _db.proudcts.Where(c => c.CategoryId == CategroyId).ToList();
+            }
+            
+
+            IPagedList<Proudct> proudctsList = proudcts.ToPagedList(PageNumber ?? 1, 9);
+
+
+
+            
+            model.proudcts = proudctsList;
+            model.categories = _db.Categories.ToList();
+            model.discounts = _db.discounts.ToList();
+
+            
+            return View(model);
+        }
+
+
     }
 }
