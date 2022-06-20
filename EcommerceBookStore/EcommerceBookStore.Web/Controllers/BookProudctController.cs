@@ -57,20 +57,20 @@ namespace EcommerceBookStore.Web.Controllers
             return View(model);
         }
 
-        public ActionResult ShopBookDetail(int? Id)
+        public ActionResult ShopBookDetail(int Id)
         {
             
             Proudct proudct = _db.proudcts.Find(Id);
-            ShopBookDeatil shopBookDeatil = new ShopBookDeatil
-            {
-                Id = proudct.Id,
-                Name = proudct.Name,
-                Author = proudct.Author,
-                PushlingHouse = proudct.PushlingHouse,
 
+
+            ShopBookDeatil model = new ShopBookDeatil
+            {
+                proudct = proudct,
+                proudctCommits = _db.proudctCommit.Where(m => m.ProudctId == proudct.Id).ToList(),
+                proudctImages = _db.proudctImages.Where(Images => Images.ProudctId == proudct.Id).ToList(),
             };
 
-            return View();
+            return View(model);
         }
 
     }

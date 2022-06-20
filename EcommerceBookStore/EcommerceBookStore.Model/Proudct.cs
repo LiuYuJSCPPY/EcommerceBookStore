@@ -16,6 +16,8 @@ namespace EcommerceBookStore.Model
         public string Name { get; set; }
         public string Author { get; set; }
         public string PushlingHouse { get; set; }
+
+        [DisplayFormat(DataFormatString ="{0:d yyyy-mm-dd}")]
         public DateTime PubshDate { get; set; }
         public string desc { get; set; }
         public int ProudctInventory { get; set; }

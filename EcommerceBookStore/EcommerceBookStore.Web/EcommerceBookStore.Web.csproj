@@ -345,6 +345,7 @@
     <Content Include="Views\Proudcts\Details.cshtml" />
     <Content Include="Views\Proudcts\Edit.cshtml" />
     <Content Include="Views\Proudcts\Index.cshtml" />
+    <Content Include="Views\BookProudct\ShopBookDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

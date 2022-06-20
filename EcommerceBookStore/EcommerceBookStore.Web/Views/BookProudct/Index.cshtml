@@ -58,7 +58,7 @@
                             <div class="p-3" style="max-width: 700px;">
                                 <h4 class="text-light text-uppercase font-weight-medium mb-3"> @Preceint 折  </h4>
                                 <h3 class="display-4 text-white font-weight-semi-bold mb-4">@DicountItem.Name</h3>
-                                <a href="" class="btn btn-light py-2 px-3">Shop Now</a>
+                                
                             </div>
                         </div>
                     </div>
@@ -111,9 +111,9 @@
                 <div class="position-relative bg-secondary text-center text-md-right text-white mb-2 py-5 px-5">
                     
                     <div class="position-relative" style="z-index: 1;">
-                        <h5 class="text-uppercase text-primary mb-3">@Dicount 折 off the all order</h5>
+                        <h5 class="text-uppercase text-primary mb-3">@Dicount %  優惠</h5>
                         <h1 class="mb-4 font-weight-semi-bold">@TwoDiscount.Name</h1>
-                        <a href="" class="btn btn-outline-primary py-md-2 px-md-3">Shop Now</a>
+                       
                     </div>
                 </div>
             }     
@@ -124,7 +124,7 @@
 <!-- Products Start -->
 <div class="container-fluid pt-5">
     <div class="text-center mb-4">
-        <h2 class="section-title px-5"><span class="px-2">Trandy Products</span></h2>
+        <h2 class="section-title px-5"><span class="px-2">最新產品</span></h2>
     </div>
     <div class="row px-xl-5 pb-3">
         @foreach (var BookItem in Model.proudcts)
@@ -156,8 +156,8 @@
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-between bg-light border">
-                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                        <a href="@Url.Action("ShopBookDetail","BookProudct",new { Id = BookItem.Id})" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>商品介紹</a>
+                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>加入購物車</a>
                     </div>
                 </div>
             </div>
