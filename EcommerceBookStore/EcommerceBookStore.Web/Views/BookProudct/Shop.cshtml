@@ -8,20 +8,20 @@
     ViewBag.Title = "Shop";
 }
 
-<div class="container-fluid">
+<div class="container-fluid mb-5">
     <div class="row border-top px-xl-5">
         <div class="col-lg-3 d-none d-lg-block">
-            <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100 collapsed" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;" aria-expanded="false">
+            <a class="btn shadow-none d-flex align-items-center justify-content-between bg-primary text-white w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; margin-top: -1px; padding: 0 30px;">
                 <h6 class="m-0">分類</h6>
                 <i class="fa fa-angle-down text-dark"></i>
             </a>
-            <nav class="position-absolute navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0 bg-light collapse" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 1;">
+            <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical">
                 <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
-                    @foreach (var categroyId in Model.categories)
+                    @foreach (var Category in Model.categories)
                     {
-                        <a href="@Url.Action("Shop","BookProudct", categroyId.Id )" class="nav-item nav-link">@categroyId.Name</a>
+                        <a href="" class="nav-item nav-link">@Category.Name</a>
                     }
-                 
+
                 </div>
             </nav>
         </div>
@@ -35,24 +35,46 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
-                        <a href="index.html" class="nav-item nav-link">Home</a>
-                        <a href="shop.html" class="nav-item nav-link active">Shop</a>
-                        <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Pages</a>
-                            <div class="dropdown-menu rounded-0 m-0">
-                                <a href="cart.html" class="dropdown-item">Shopping Cart</a>
-                                <a href="checkout.html" class="dropdown-item">Checkout</a>
-                            </div>
-                        </div>
-                        <a href="contact.html" class="nav-item nav-link">Contact</a>
+                        <a href="@Url.Action("Index","BookProudct")" class="nav-item nav-link active">首頁</a>
+                        <a href="@Url.Action("shop","BookProudct")" class="nav-item nav-link">好書來購物</a>
+
                     </div>
                     <div class="navbar-nav ml-auto py-0">
-                        <a href="" class="nav-item nav-link">Login</a>
-                        <a href="" class="nav-item nav-link">Register</a>
+                        <a href="" class="nav-item nav-link">登入</a>
+                        <a href="" class="nav-item nav-link">申請會員</a>
                     </div>
                 </div>
             </nav>
+            <div id="header-carousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    @foreach (var DicountItem in Model.discounts)
+                    {
+                        int Preceint = (int)DicountItem.Discount_Preceint;
+                        <div class="carousel-item active" style="height: 410px;">
+                            <img class="img-fluid" src="@Url.Content(DicountItem.DiscountImage)" alt="Image">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h4 class="text-light text-uppercase font-weight-medium mb-3"> @Preceint 折  </h4>
+                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">@DicountItem.Name</h3>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+                <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
+                    <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                        <span class="carousel-control-prev-icon mb-n2"></span>
+                    </div>
+                </a>
+                <a class="carousel-control-next" href="#header-carousel" data-slide="next">
+                    <div class="btn btn-dark" style="width: 45px; height: 45px;">
+                        <span class="carousel-control-next-icon mb-n2"></span>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 </div>
@@ -60,11 +82,11 @@
 
 <div class="container-fluid bg-secondary mb-5">
     <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
-        <h1 class="font-weight-semi-bold text-uppercase mb-3">Our Shop</h1>
+        <h1 class="font-weight-semi-bold text-uppercase mb-3">購物區</h1>
         <div class="d-inline-flex">
-            <p class="m-0"><a href="">Home</a></p>
+            <p class="m-0"><a href="@Url.Action("Index","BookProudct")">首頁</a></p>
             <p class="m-0 px-2">-</p>
-            <p class="m-0">Shop</p>
+            <p class="m-0">購物區</p>
         </div>
     </div>
 </div>
