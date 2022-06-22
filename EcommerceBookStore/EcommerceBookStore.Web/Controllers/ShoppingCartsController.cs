@@ -35,23 +35,28 @@ namespace EcommerceBookStore.Web.Controllers
 
 
         [HttpPost]
-        public JsonResult AddToCartItem(CartItem cartItem)
+        public JsonResult AddToCart(CartItem cartItem)
         {
             JsonResult json = new JsonResult();
-            string Id = User.Identity.GetUserId();
+            string UserId = User.Identity.GetUserId();
             bool result = false;
-            if(Id != null)
+            if(UserId != null)
             {
-                Cart IsCart = _cartService.GetCartById(Id);
+                Cart IsCart = _cartService.GetCartById(UserId);
                 if(IsCart == null)
                 {
                     var SaveCart = new Cart();
-                    SaveCart.BookStoreUserId = Id;
+                    SaveCart.BookStoreUserId = UserId;
                     if (_cartService.SaveCart(SaveCart))
                     {
-                        Cart AddCartId = _cartService.GetCartById(Id);
+                        Cart AddCartId = _cartService.GetCartById(UserId);
                        
                         cartItem.CartId = AddCartId.Id;
+                        if(cartItem.quantity == null)
+                        {
+                            cartItem.quantity++;
+                        }
+                        
                         result = _cartService.SaveCartItem(cartItem);
                     }
 
@@ -63,6 +68,12 @@ namespace EcommerceBookStore.Web.Controllers
                     result = _cartService.SaveCartItem(cartItem);
                 }
             }
+            else
+            {
+                result = this.addToCookieCart(cartItem);
+
+            }
+
 
             if (result)
             {
@@ -81,6 +92,61 @@ namespace EcommerceBookStore.Web.Controllers
             return json;
         }
 
-       
+
+
+
+
+
+
+        private bool addToCookieCart(CartItem cartItem)
+        {
+            JsonResult CookiesCart = getCartFormCookie();
+            bool Result = false;
+            if (cartItem != null)
+            {
+                Proudct FindProudct = _db.proudcts.Find(cartItem.ProudctId);
+                if (FindProudct != null)
+                {
+                   CookiesCart.Data = new { ProudctId = cartItem.ProudctId, quantity = cartItem.quantity  };
+                 
+                }
+
+            }
+
+            if (SaveCookieCart(CookiesCart))
+            {
+                Result = true;
+                return Result;
+            }
+            else
+            {
+                return Result;
+            }
+        }
+
+        private bool SaveCookieCart(JsonResult CookieCart)
+        {
+           
+            bool Result = false;
+
+           
+            Response.Cookies["Cart"].Value = CookieCart.Data.ToString();
+
+
+            if (Request.Cookies["Cart"] != null)
+            {
+                Result = true;
+            }
+
+            return Result;
+        }
+
+        private JsonResult getCartFormCookie()
+        {
+            JsonResult jsonCart = new JsonResult();
+            var cart = Request.Cookies["cart"];
+
+            return Json(cart != null ? Json(cart) :);
+        }
     }
 }

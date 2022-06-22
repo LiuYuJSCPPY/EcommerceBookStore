@@ -91,23 +91,12 @@
 
             <p class="font-weight-semi-bold mb-4">作者: @Model.proudct.Author</p>
             <p class="font-weight-semi-bold mb-4">出版社: @Model.proudct.PushlingHouse</p>
-            <p class="font-weight-semi-bold mb-4">出版日期: @Model.proudct.PubshDate</p>
+            <p class="font-weight-semi-bold mb-4">出版日期: @Model.proudct.PubshDate.ToString("yyyy-MM-dd")</p>
 
             <div class="d-flex align-items-center mb-4 pt-2">
-                <div class="input-group quantity mr-3" style="width: 130px;">
-                    <div class="input-group-btn">
-                        <button class="btn btn-primary btn-minus">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                    <input type="text" class="form-control bg-secondary text-center" value="1">
-                    <div class="input-group-btn">
-                        <button class="btn btn-primary btn-plus">
-                            <i class="fa fa-plus"></i>
-                        </button>
-                    </div>
-                </div>
-                <button class="btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> 加入購物車</button>
+                <input id="ProudctId" type="hidden"value="@Model.proudct.Id">
+                <input id="quantity" type="number">
+                <button id="addToCart" class=" btn btn-primary px-3"><i class="fa fa-shopping-cart mr-1"></i> 加入購物車</button>
             </div>
 
         </div>
@@ -173,3 +162,34 @@
 </div>
 
 
+<script>
+    $("#addToCart").click(function () {
+        debugger;
+        var AddCart = new FormData();
+        AddCart.append("ProudctId", $("#ProudctId").val());
+
+
+        if ($("#quantity").val() != null) {
+            AddCart.append("quantity", $("#quantity").val());
+        } else {
+            AddCart.append("quantity", 1);
+        }
+        
+        debugger;
+        $.ajax({
+            url: "@Url.Action("AddToCart", "ShoppingCarts")",
+            type: "post",
+            processData: false,
+            contentType: false,
+            data: AddCart,
+        }).done(function (respone){
+            debugger;
+            if (respone.Success) {
+                window.location.href = "@Url.Action("Index", "BookProudct")";
+            } else {
+
+            }
+
+        })
+    })
+</script>
