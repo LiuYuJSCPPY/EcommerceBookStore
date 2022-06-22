@@ -8,6 +8,7 @@ using EcommerceBookStore.Model;
 
 namespace EcommerceBookStore.Web.ViewModel
 {
+    
     public class ShoppingCartViewModel
     {
         public int CartId { get; set; }
@@ -26,6 +27,16 @@ namespace EcommerceBookStore.Web.ViewModel
     {
         public IEnumerable<CartItem> cartItems { get; set; }
         public Cart cart { get; set; }
+    }
+
+
+    public class CookieCartViewModel
+    {
+        public IList<ShoppingCartViewModel> shoppingCartViewModels { get; set; }
+        public CookieCartViewModel()
+        {
+            shoppingCartViewModels = new List<ShoppingCartViewModel>();
+        }
     }
  
 }

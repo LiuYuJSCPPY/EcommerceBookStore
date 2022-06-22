@@ -9,7 +9,7 @@ using EcommerceBookStore.Web.ViewModel;
 using EcommerceBookStore.Model;
 using EcommerceBookStore.Server;
 using EcommerceBookStore.Data;
-
+using Newtonsoft.Json;
 
 namespace EcommerceBookStore.Web.Controllers
 {
@@ -100,15 +100,20 @@ namespace EcommerceBookStore.Web.Controllers
 
         private bool addToCookieCart(CartItem cartItem)
         {
-            JsonResult CookiesCart = getCartFormCookie();
+            CookieCartViewModel CookiesCart = getCartFormCookie();
+           
             bool Result = false;
             if (cartItem != null)
             {
                 Proudct FindProudct = _db.proudcts.Find(cartItem.ProudctId);
                 if (FindProudct != null)
                 {
-                   CookiesCart.Data = new { ProudctId = cartItem.ProudctId, quantity = cartItem.quantity  };
-                 
+                    ShoppingCartViewModel cookieCartViewModel = new ShoppingCartViewModel();
+                    cookieCartViewModel.ProudctId = cartItem.ProudctId;
+                    cookieCartViewModel.quantity = cartItem.quantity;
+                    CookiesCart.shoppingCartViewModels.Add(cookieCartViewModel);
+
+
                 }
 
             }
@@ -124,13 +129,13 @@ namespace EcommerceBookStore.Web.Controllers
             }
         }
 
-        private bool SaveCookieCart(JsonResult CookieCart)
+        private bool SaveCookieCart(CookieCartViewModel CookieCart)
         {
            
             bool Result = false;
 
-           
-            Response.Cookies["Cart"].Value = CookieCart.Data.ToString();
+
+            Response.Cookies["Cart"].Value = JsonConvert.SerializeObject(CookieCart);
 
 
             if (Request.Cookies["Cart"] != null)
@@ -141,12 +146,22 @@ namespace EcommerceBookStore.Web.Controllers
             return Result;
         }
 
-        private JsonResult getCartFormCookie()
+        private CookieCartViewModel getCartFormCookie()
         {
-            JsonResult jsonCart = new JsonResult();
-            var cart = Request.Cookies["cart"];
+            var getCookie = Request.Cookies["Cart"].Value;
+            
 
-            return Json(cart != null ? Json(cart) :);
+            CookieCartViewModel CookieCart = new CookieCartViewModel();
+            if (getCookie != null)
+            {
+                string getAllCookie = getCookie;
+                 CookieCart = JsonConvert.DeserializeObject<CookieCartViewModel>(getAllCookie);
+            }
+            
+         
+            
+
+            return CookieCart;
         }
     }
 }
