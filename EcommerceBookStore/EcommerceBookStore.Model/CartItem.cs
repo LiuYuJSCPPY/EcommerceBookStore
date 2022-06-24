@@ -21,7 +21,7 @@ namespace EcommerceBookStore.Model
         public Proudct proudct { get; set; }
 
         public int quantity { get; set; }
-       
 
+        
     }
 }

@@ -15,7 +15,7 @@
                     {
                         <a href="" class="nav-item nav-link">@Category.Name</a>
                     }
-                   
+
                 </div>
             </nav>
         </div>
@@ -31,7 +31,7 @@
                     <div class="navbar-nav mr-auto py-0">
                         <a href="@Url.Action("Index","BookProudct")" class="nav-item nav-link active">首頁</a>
                         <a href="@Url.Action("shop","BookProudct")" class="nav-item nav-link">好書來購物</a>
-                       
+
                     </div>
                     <div class="navbar-nav ml-auto py-0">
                         <a href="" class="nav-item nav-link">登入</a>
@@ -44,19 +44,19 @@
                     @foreach (var DicountItem in Model.discounts)
                     {
                         int Preceint = (int)DicountItem.Discount_Preceint;
-                    <div class="carousel-item active" style="height: 410px;">
-                        <img class="img-fluid" src="@Url.Content(DicountItem.DiscountImage)" alt="Image">
-                        <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                            <div class="p-3" style="max-width: 700px;">
-                                <h4 class="text-light text-uppercase font-weight-medium mb-3"> @Preceint 折  </h4>
-                                <h3 class="display-4 text-white font-weight-semi-bold mb-4">@DicountItem.Name</h3>
-                                
+                        <div class="carousel-item active" style="height: 410px;">
+                            <img class="img-fluid" src="@Url.Content(DicountItem.DiscountImage)" alt="Image">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h4 class="text-light text-uppercase font-weight-medium mb-3"> @Preceint 折  </h4>
+                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">@DicountItem.Name</h3>
+
+                                </div>
                             </div>
                         </div>
-                    </div>
                     }
-                    
-                    
+
+
                 </div>
                 <a class="carousel-control-prev" href="#header-carousel" data-slide="prev">
                     <div class="btn btn-dark" style="width: 45px; height: 45px;">
@@ -88,7 +88,7 @@
                 </div>
             </div>
         }
-        
+
     </div>
 </div>
 <!-- Categories End -->
@@ -96,20 +96,20 @@
 <div class="container-fluid offer pt-5">
     <div class="row px-xl-5">
         <div class="col-md-6 pb-4">
-            @foreach(var TwoDiscount in Model.discounts.Take(2))
+            @foreach (var TwoDiscount in Model.discounts.Take(2))
             {
 
                 int Dicount = (int)TwoDiscount.Discount_Preceint;
                 <div class="position-relative bg-secondary text-center text-md-right text-white mb-2 py-5 px-5">
-                    
+
                     <div class="position-relative" style="z-index: 1;">
                         <h5 class="text-uppercase text-primary mb-3">@Dicount %  優惠</h5>
                         <h1 class="mb-4 font-weight-semi-bold">@TwoDiscount.Name</h1>
-                       
+
                     </div>
                 </div>
-            }     
-        </div> 
+            }
+        </div>
     </div>
 </div>
 <!-- Offer End -->
@@ -158,3 +158,5 @@
     </div>
 </div>
 <!-- Products End -->
+
+{"shoppingCartViewModels":[{"CartId":0,"ProudctId":1,"quantity":5},{"CartId":0,"ProudctId":1,"quantity":5}]}

@@ -340,6 +340,7 @@
     <Content Include="Views\BookProudct\Index.cshtml" />
     <Content Include="Views\BookProudct\Shop.cshtml" />
     <Content Include="Views\BookProudct\ShopBookDetail.cshtml" />
+    <Content Include="Views\ShoppingCarts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

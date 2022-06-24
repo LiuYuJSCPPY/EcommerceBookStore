@@ -9,6 +9,7 @@ using EcommerceBookStore.Web.ViewModel;
 using EcommerceBookStore.Model;
 using EcommerceBookStore.Server;
 using EcommerceBookStore.Data;
+
 using Newtonsoft.Json;
 
 namespace EcommerceBookStore.Web.Controllers
@@ -21,17 +22,38 @@ namespace EcommerceBookStore.Web.Controllers
         // GET: ShoppingCarts
         public ActionResult Index()
         {
-            
-            return View();
+           String UserId = User.Identity.GetUserId();
+            Cart cart = _db.Carts.Where(u => u.BookStoreUserId == UserId).First();
+           if(UserId != null)
+            {
+                if(cart == null)
+                {
+                    cart.BookStoreUserId = UserId;
+                    _cartService.SaveCart(cart);
+                }
+            }
+
+            var CartItems = GetAllCartCookie();
+            CartItem cartItem = new CartItem();
+            List<getAllCartItems> AllCartItems = new List<getAllCartItems>();
+            foreach(var item in CartItems)
+            {  
+                cartItem.proudct = _db.proudcts.Find(item.ProudctId);
+                cartItem.proudct.discount = _db.discounts.Find(cartItem.proudct.DiscountId);
+               
+                AllCartItems.Add(new getAllCartItems(){
+                    ProudctId = item.ProudctId,
+                    quantity = item.ProudctId,
+                    proudct = _db.proudcts.Find(item.ProudctId),
+                    Discount = cartItem.proudct.discount
+                });
+            }
+           
+
+            return View(AllCartItems);
         }
 
-
-        public ActionResult CartPartelView()
-        {
-          
-
-            return PartialView("_CartPartelView");
-        }
+       
 
 
         [HttpPost]
@@ -45,7 +67,7 @@ namespace EcommerceBookStore.Web.Controllers
                 Cart IsCart = _cartService.GetCartById(UserId);
                 if(IsCart == null)
                 {
-                    var SaveCart = new Cart();
+                     Cart SaveCart = new Cart();
                     SaveCart.BookStoreUserId = UserId;
                     if (_cartService.SaveCart(SaveCart))
                     {
@@ -93,8 +115,7 @@ namespace EcommerceBookStore.Web.Controllers
         }
 
 
-
-
+    
 
 
 
@@ -146,22 +167,78 @@ namespace EcommerceBookStore.Web.Controllers
             return Result;
         }
 
+
+        //public bool setCookie(List Cartitem)
+        //{
+        //    try
+        //    {
+        //        HttpCookie myCookie = new HttpCookie("Cart"); //Cookie名稱  
+        //        foreach (var i in Product)
+        //        {
+        //            myCookie[j.ToString()] = i.Id.ToString() + "," + i.Name + "," + i.Price.ToString() + "," + i.Amount.ToString();//欲儲存的資料內容(這邊以逗號作區隔)
+        //            j++; //子索引鍵的識別值
+        //        }
+        //        myCookie.Expires = DateTime.Now.AddDays(1);//有效期限一天 
+        //        myCookie.HttpOnly = true;
+        //        Response.Cookies.Add(myCookie);//加入Cookie
+        //        return true;
+
+        //    }
+        //    catch
+        //    {
+        //        return false;
+        //    }
+        //}
+
+        //        顯示在網頁中的格式(僅以名稱、值作說明，並以底線表示一個值組)
+
+        //Name
+
+        //Value
+
+        //Product
+
+        //0=1,AA,100,1&1=2,BB,400,2&2=3,CC,600,7&3=4,DD,350,3&4=5,EE,1000,10
+
+
+
+        //在讀取Cookie時，單筆使用逗號區分Cookie內的資料，再以陣列方式儲存，列出內容。
+
+        //----------------------------------------------------------------------------------------------
+
+        //如有錯誤，煩請指正 ^_^ ~謝謝
+
+
+
+
+
+
         private CookieCartViewModel getCartFormCookie()
         {
-            var getCookie = Request.Cookies["Cart"].Value;
+            var getCookie = Request.Cookies["Cart"];
             
 
             CookieCartViewModel CookieCart = new CookieCartViewModel();
             if (getCookie != null)
             {
-                string getAllCookie = getCookie;
-                 CookieCart = JsonConvert.DeserializeObject<CookieCartViewModel>(getAllCookie);
-            }
-            
-         
-            
+                string getAllCookie = getCookie.Value;
+                CookieCart = JsonConvert.DeserializeObject<CookieCartViewModel>(getAllCookie);
+                List<ShoppingCartViewModel> set = CookieCart.shoppingCartViewModels.ToList();
 
-            return CookieCart;
+              
+            }      
+
+            return CookieCart; 
+        }
+
+
+        private List<ShoppingCartViewModel> GetAllCartCookie()
+        {
+            var getCookie = Request.Cookies["Cart"];
+            var CookieCart = JsonConvert.DeserializeObject<CookieCartViewModel>(getCookie.Value);
+            List<ShoppingCartViewModel> AllCart = CookieCart.shoppingCartViewModels.ToList();
+
+            return AllCart;
         }
     }
 }
