@@ -22,16 +22,16 @@ namespace EcommerceBookStore.Web.Controllers
         // GET: ShoppingCarts
         public ActionResult Index()
         {
-           String UserId = User.Identity.GetUserId();
-            Cart cart = _db.Carts.Where(u => u.BookStoreUserId == UserId).First();
-           if(UserId != null)
-            {
-                if(cart == null)
-                {
-                    cart.BookStoreUserId = UserId;
-                    _cartService.SaveCart(cart);
-                }
-            }
+           //String UserId = User.Identity.GetUserId();
+           // Cart cart = _db.Carts.Where(u => u.BookStoreUserId == UserId).First();
+           //if(UserId != null)
+           // {
+           //     if(cart == null)
+           //     {
+           //         cart.BookStoreUserId = UserId;
+           //         _cartService.SaveCart(cart);
+           //     }
+           // }
 
             var CartItems = GetAllCartCookie();
             CartItem cartItem = new CartItem();
@@ -115,8 +115,34 @@ namespace EcommerceBookStore.Web.Controllers
         }
 
 
-    
+        [HttpPost]
+        public JsonResult UpdateCart(CartItem cartItem,int? Id)
+        {
+            JsonResult json = new JsonResult();
+            string UserId = User.Identity.GetUserId();
+            bool result = false;
+            if (UserId != null)
+            {
+                result = UpdateDbByCart(cartItem,Id.Value);
 
+            }
+            else
+            {
+                result = UpdateCookieByCart(cartItem);
+            }
+
+
+            if (result)
+            {
+                json.Data = new { Success = true };
+            }
+            else
+            {
+                json.Data = new { Success = false, Message = "Error" };
+            }
+            return json;
+
+        }
 
 
         private bool addToCookieCart(CartItem cartItem)
@@ -208,8 +234,33 @@ namespace EcommerceBookStore.Web.Controllers
 
         //如有錯誤，煩請指正 ^_^ ~謝謝
 
+        private bool UpdateDbByCart(CartItem cartItem , int Id)
+        {
+            bool Result = false;
+            if (_db.proudcts.Where(x => x.Id == cartItem.ProudctId) != null  && _cartService.GetCartItemById(Id) != null)
+            {
+                Result = _cartService.UpdateCartItem(cartItem);
+
+            }
+
+            return Result;
+        }
 
 
+        private bool UpdateCookieByCart(CartItem cartItem)
+        {
+
+            if(_db.proudcts.Where(x => x.Id == cartItem.ProudctId) != null)
+            {
+                var updateCookie = getCartFormCookie();
+                var obj = updateCookie.shoppingCartViewModels.FirstOrDefault(x => x.ProudctId == cartItem.ProudctId);
+                obj.quantity = cartItem.quantity;
+                SaveCookieCart(updateCookie);
+                return true;
+            }
+          
+            return false;
+        }
 
 
 

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EcommerceBookStore.Data;
 using EcommerceBookStore.Model;
+using System.Data.Entity;
 
 namespace EcommerceBookStore.Server
 {
@@ -18,7 +19,16 @@ namespace EcommerceBookStore.Server
             return context.Carts.Where(cart => cart.BookStoreUserId == Id).First();
         }
 
+        public CartItem GetCartItemById(int Id)
+        {
+            var context = new EBookStoreContext();
+            return context.CartItems.Find(Id);
+        }
+        
 
+
+
+        //Cart
         public bool SaveCart(Cart cart)
         {
             var context = new EBookStoreContext();
@@ -27,6 +37,10 @@ namespace EcommerceBookStore.Server
             return context.SaveChanges() > 0;
         }
 
+
+
+
+        //CartItem
         public bool SaveCartItem(CartItem cartItem)
         {
             var context = new EBookStoreContext();
@@ -36,7 +50,12 @@ namespace EcommerceBookStore.Server
             return context.SaveChanges() > 0;
         }
 
-
+        public bool UpdateCartItem(CartItem cartItem)
+        {
+            var context = new EBookStoreContext();
+            context.Entry(cartItem).State = EntityState.Modified;
+            return context.SaveChanges() > 0;
+        }
 
     }
 
