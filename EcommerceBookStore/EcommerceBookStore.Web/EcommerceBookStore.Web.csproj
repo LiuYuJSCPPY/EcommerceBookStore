@@ -287,6 +287,7 @@
     <Content Include="Areas\Dashboard\Views\User\Index.cshtml" />
     <Content Include="Areas\Dashboard\Views\User\_Action.cshtml" />
     <Content Include="Areas\Dashboard\Views\User\_Delete.cshtml" />
+    <Content Include="libman.json" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />

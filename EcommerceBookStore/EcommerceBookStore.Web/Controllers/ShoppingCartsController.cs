@@ -43,7 +43,7 @@ namespace EcommerceBookStore.Web.Controllers
                
                 AllCartItems.Add(new getAllCartItems(){
                     ProudctId = item.ProudctId,
-                    quantity = item.ProudctId,
+                    quantity = item.quantity,
                     proudct = _db.proudcts.Find(item.ProudctId),
                     Discount = cartItem.proudct.discount
                 });
@@ -121,15 +121,8 @@ namespace EcommerceBookStore.Web.Controllers
             JsonResult json = new JsonResult();
             string UserId = User.Identity.GetUserId();
             bool result = false;
-            if (UserId != null)
-            {
-                result = UpdateDbByCart(cartItem,Id.Value);
-
-            }
-            else
-            {
-                result = UpdateCookieByCart(cartItem);
-            }
+            
+            result = UpdateDbByCart(cartItem,Id.Value);
 
 
             if (result)
@@ -143,6 +136,54 @@ namespace EcommerceBookStore.Web.Controllers
             return json;
 
         }
+
+
+
+//Cookie
+        [HttpPost]
+        public JsonResult UpdateCookieCart(List<ShoppingCartViewModel> CookiesCartItem)
+        {
+            bool Result = false;
+            JsonResult json = new JsonResult();
+
+
+            Result = SaveCookiesItems(CookiesCartItem);
+
+
+            if (Result)
+            {
+                json.Data = new { Success = true };
+            }
+            else
+            {
+                json.Data = new { Success = false, Message = "Error" };
+            }
+
+            return json;
+        }
+
+        
+        [HttpPost]
+        public JsonResult DeleteCookieCart(List<ShoppingCartViewModel> CookCartItem)
+        {
+            bool Result = false;
+            JsonResult json = new JsonResult();
+
+            Result = SaveCookiesItems(CookCartItem);
+
+
+            if (Result)
+            {
+                json.Data = new { Success = true };
+            }
+            else
+            {
+                json.Data = new { Success = false, Message = "Error" };
+            }
+
+            return json;
+        }
+
 
 
         private bool addToCookieCart(CartItem cartItem)
@@ -164,6 +205,7 @@ namespace EcommerceBookStore.Web.Controllers
                 }
 
             }
+            
 
             if (SaveCookieCart(CookiesCart))
             {
@@ -193,46 +235,23 @@ namespace EcommerceBookStore.Web.Controllers
             return Result;
         }
 
+        private bool SaveCookiesItems (List<ShoppingCartViewModel> shoppingCartViewModels)
+        {
+            bool Result = false;
+            CookieCartViewModel CookiesItems = new CookieCartViewModel();
+            CookiesItems.shoppingCartViewModels = shoppingCartViewModels;
+            Response.Cookies["Cart"].Value = JsonConvert.SerializeObject(CookiesItems);
 
-        //public bool setCookie(List Cartitem)
-        //{
-        //    try
-        //    {
-        //        HttpCookie myCookie = new HttpCookie("Cart"); //Cookie名稱  
-        //        foreach (var i in Product)
-        //        {
-        //            myCookie[j.ToString()] = i.Id.ToString() + "," + i.Name + "," + i.Price.ToString() + "," + i.Amount.ToString();//欲儲存的資料內容(這邊以逗號作區隔)
-        //            j++; //子索引鍵的識別值
-        //        }
-        //        myCookie.Expires = DateTime.Now.AddDays(1);//有效期限一天 
-        //        myCookie.HttpOnly = true;
-        //        Response.Cookies.Add(myCookie);//加入Cookie
-        //        return true;
-
-        //    }
-        //    catch
-        //    {
-        //        return false;
-        //    }
-        //}
-
-        //        顯示在網頁中的格式(僅以名稱、值作說明，並以底線表示一個值組)
-
-        //Name
-
-        //Value
-
-        //Product
-
-        //0=1,AA,100,1&1=2,BB,400,2&2=3,CC,600,7&3=4,DD,350,3&4=5,EE,1000,10
+            if (Request.Cookies["Cart"] != null)
+            {
+                Result = true;
+            }
 
 
+            return Result;
+        }
 
-        //在讀取Cookie時，單筆使用逗號區分Cookie內的資料，再以陣列方式儲存，列出內容。
 
-        //----------------------------------------------------------------------------------------------
-
-        //如有錯誤，煩請指正 ^_^ ~謝謝
 
         private bool UpdateDbByCart(CartItem cartItem , int Id)
         {
@@ -246,21 +265,6 @@ namespace EcommerceBookStore.Web.Controllers
             return Result;
         }
 
-
-        private bool UpdateCookieByCart(CartItem cartItem)
-        {
-
-            if(_db.proudcts.Where(x => x.Id == cartItem.ProudctId) != null)
-            {
-                var updateCookie = getCartFormCookie();
-                var obj = updateCookie.shoppingCartViewModels.FirstOrDefault(x => x.ProudctId == cartItem.ProudctId);
-                obj.quantity = cartItem.quantity;
-                SaveCookieCart(updateCookie);
-                return true;
-            }
-          
-            return false;
-        }
 
 
 
