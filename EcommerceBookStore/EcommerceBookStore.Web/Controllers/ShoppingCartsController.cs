@@ -20,34 +20,73 @@ namespace EcommerceBookStore.Web.Controllers
         private CartService _cartService;
         private EBookStoreContext _db = new EBookStoreContext();
         // GET: ShoppingCarts
-        public ActionResult Index()
+        public ActionResult Index(List<getAllCartItems> cartItems)
         {
-           //String UserId = User.Identity.GetUserId();
-           // Cart cart = _db.Carts.Where(u => u.BookStoreUserId == UserId).First();
-           //if(UserId != null)
-           // {
-           //     if(cart == null)
-           //     {
-           //         cart.BookStoreUserId = UserId;
-           //         _cartService.SaveCart(cart);
-           //     }
-           // }
+            //String UserId = User.Identity.GetUserId();
+            // Cart cart = _db.Carts.Where(u => u.BookStoreUserId == UserId).First();
+            //if(UserId != null)
+            // {
+            //     if(cart == null)
+            //     {
+            //         cart.BookStoreUserId = UserId;
+            //         _cartService.SaveCart(cart);
+            //     }
+            // }
 
-            var CartItems = GetAllCartCookie();
-            CartItem cartItem = new CartItem();
-            List<getAllCartItems> AllCartItems = new List<getAllCartItems>();
-            foreach(var item in CartItems)
-            {  
-                cartItem.proudct = _db.proudcts.Find(item.ProudctId);
-                cartItem.proudct.discount = _db.discounts.Find(cartItem.proudct.DiscountId);
-               
-                AllCartItems.Add(new getAllCartItems(){
-                    ProudctId = item.ProudctId,
-                    quantity = item.quantity,
-                    proudct = _db.proudcts.Find(item.ProudctId),
-                    Discount = cartItem.proudct.discount
-                });
+
+
+            List<CartItem> AllCartItems = new List<CartItem>();
+            if (User.Identity.IsAuthenticated)
+            {
+                string UserId = User.Identity.GetUserId();
+                Cart cartId = _db.Carts.Where(u => u.BookStoreUserId == UserId).First();
+                if (Request.Cookies["Cart"] != null)
+                {
+                     bool Result = CookieItemsByDbItems(cartId.Id);
+                    if (Result)
+                    {
+                        AllCartItems = _db.CartItems.Where(c => c.CartId == cartId.Id).ToList();
+                    }
+                }
+                else
+                {
+                   
+                   
+                    AllCartItems = _db.CartItems.Where(c => c.CartId == cartId.Id).ToList();
+                   
+                }
             }
+            else
+            {
+                var CartItems = GetAllCartCookie();
+                CartItem cartItem = new CartItem();
+                if (CartItems != null)
+                {
+                    foreach (var item in CartItems)
+                    {
+                        cartItem.proudct = _db.proudcts.Find(item.ProudctId);
+                        cartItem.proudct.discount = _db.discounts.Find(cartItem.proudct.DiscountId);
+
+                        AllCartItems.Add(new CartItem()
+                        {
+                            ProudctId = item.ProudctId,
+                            quantity = item.quantity,
+                            proudct = _db.proudcts.Find(item.ProudctId),
+
+                        });
+                    }
+                }
+                else
+                {
+                    AllCartItems = null;
+                }
+               
+                
+                
+            }
+       
+
+
            
 
             return View(AllCartItems);
@@ -290,10 +329,71 @@ namespace EcommerceBookStore.Web.Controllers
         private List<ShoppingCartViewModel> GetAllCartCookie()
         {
             var getCookie = Request.Cookies["Cart"];
-            var CookieCart = JsonConvert.DeserializeObject<CookieCartViewModel>(getCookie.Value);
-            List<ShoppingCartViewModel> AllCart = CookieCart.shoppingCartViewModels.ToList();
+            List<ShoppingCartViewModel> AllCart = new List<ShoppingCartViewModel>();
+            if (getCookie != null)
+            {
+               var CookieCart = JsonConvert.DeserializeObject<CookieCartViewModel>(getCookie.Value);
+               AllCart = CookieCart.shoppingCartViewModels.ToList();
+            }
+            else
+            {
+                AllCart = null;
+            }
+         
+            
 
             return AllCart;
         }
+
+
+        private bool AddCart(string UserID)
+        {
+        
+            bool Result= false;
+            Cart cart = new Cart();
+            cart.BookStoreUserId = UserID;
+            Result = _cartService.SaveCart(cart);
+
+            return Result;
+        }
+
+
+        private bool CookieItemsByDbItems(int? CartId)
+        {
+            //If is have Cart CartItem add CartId Clounm
+           
+            bool Result = false;
+           
+            if (CartId.HasValue)
+            {
+                var CookieCartItems = GetAllCartCookie();
+               
+                foreach(var CartItem in CookieCartItems)
+                {
+                    CartItem cartItem = new CartItem()
+                    {
+                        CartId = CartId.Value,
+                        ProudctId = CartItem.ProudctId,
+                        quantity = CartItem.quantity,
+                    };
+                    _db.CartItems.Add(cartItem);
+                }
+                Response.Cookies["Cart"].Value = "{}";
+                Result= _db.SaveChanges() > 0;
+            }
+            else
+            {
+                Result = AddCart(User.Identity.Name);
+                Cart cart = _db.Carts.Find(CartId);
+                if(cart != null)
+                {
+                    CookieItemsByDbItems(cart.Id);
+                }
+            }
+
+
+            return Result;
+        }
+
     }
 }
