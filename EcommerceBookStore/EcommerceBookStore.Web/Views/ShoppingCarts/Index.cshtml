@@ -16,165 +16,198 @@
 @if (Model != null)
 {
     <div class="container-fluid pt-5">
-    <div class="row px-xl-5">
-        <div class="col-lg-8 table-responsive mb-5">
-            <table class="table table-bordered text-center mb-0">
-                <thead class="bg-secondary text-dark">
-                    <tr>
-                        <th>商品</th>
-                        <th>價格</th>
-                        <th>數量</th>
-                        <th>總共</th>
-                        <th>刪除</th>
-                    </tr>
-                </thead>
-                <tbody class="align-middle">
-                    @foreach (var item in Model)
-                    {
+        <div class="row px-xl-5">
+            <div class="col-lg-8 table-responsive mb-5">
+                <table class="table table-bordered text-center mb-0">
+                    <thead class="bg-secondary text-dark">
                         <tr>
-
-                            <td class="align-middle"><img src="@Url.Content(item.proudct.ProudctImage)" alt="" style="width: 127px;"> @item.proudct.Name</td>
-                            @if (item.proudct.discount != null)
-                            {
-                                decimal price = item.proudct.price * (item.proudct.discount.Discount_Preceint / 100);
-                                int dprice = (int)price;
-                                <td class="align-middle">$@dprice</td>
-                            }
-                            else
-                            {
-                                <td class="align-middle">@item.proudct.price</td>
-                            }
-
-                            <td class="align-middle">
-                                <div class="input-group quantity mx-auto" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-minus">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-
-                                    <input type="hidden" id="ProudctId" name="ProudctId" value="@item.ProudctId" />
-                                    <input type="text" id="quantity" name="quantity" class="form-control form-control-sm bg-secondary text-center" value="@item.quantity">
-
-
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-primary btn-plus">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            @if (item.proudct.discount != null)
-                            {
-                                decimal Preceint = item.proudct.price * (item.proudct.discount.Discount_Preceint / 100);
-                                int PreceintPrice = (int)Preceint;
-                                var dTotalprice = PreceintPrice * item.quantity;
-                                <td class="align-middle">$@dTotalprice</td>
-                            }
-                            else
-                            {
-                                var Totalprice = item.proudct.price * item.quantity;
-                                <td class="align-middle">@Totalprice</td>
-                            }
-                            <td class="align-middle">
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    <button class="data-btn btn btn-sm btn-primary" data-herf="@Url.Action("UpdateCart", "ShoppingCarts", new { Id = item.ProudctId })"><i class="fa-regular fa-pen"></i></button>
-                                }
-                                else
-                                {
-                                    <button class="CookieData-Btn btn btn-sm btn-primary" data-herf="@Url.Action("UpdateCookieCart", "ShoppingCarts")"><i class="fa-regular fa-pen"></i></button>
-                                }
-
-                                @if (User.Identity.IsAuthenticated)
-                                {
-                                    <button class="data-btn btn btn-sm btn-primary" data-herf="@Url.Action("DeleteDbCart", "ShoppingCarts", new { Id = item.ProudctId })"><i class="fa fa-times"></i></button>
-                                }
-                                else
-                                {
-                                    <button class="Delete-Btn btn btn-sm btn-primary" data-herf="@Url.Action("DeleteCookieCart", "ShoppingCarts")"><i class="fa fa-times"></i></button>
-                                }
-
-
-
-                            </td>
-
+                            <th>商品</th>
+                            <th>價格</th>
+                            <th>數量</th>
+                            <th>總共</th>
+                            <th>刪除</th>
                         </tr>
+                    </thead>
+                    <tbody class="align-middle">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
 
-                    }
-                </tbody>
-            </table>
-        </div>
-        <div class="col-lg-4">
+                                <td class="align-middle"><img src="@Url.Content(item.proudct.ProudctImage)" alt="" style="width: 127px;"> @item.proudct.Name</td>
+                                @if (item.proudct.discount != null)
+                                {
+                                    decimal price = item.proudct.price * (item.proudct.discount.Discount_Preceint / 100);
+                                    int dprice = (int)price;
+                                    <td class="align-middle">$@dprice</td>
+                                }
+                                else
+                                {
+                                    <td class="align-middle">@item.proudct.price</td>
+                                }
 
-            <div class="card border-secondary mb-5">
-                <div class="card-header bg-secondary border-0">
-                    <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
-                </div>
-                <div class="card-body">
-                    @foreach (var item in Model)
-                    {
-                        var Totalprice = item.proudct.price * item.quantity;
+                                <td class="align-middle">
+                                    <div class="input-group quantity mx-auto" style="width: 100px;">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-minus">
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                        </div>
 
-                        <div class="d-flex justify-content-between mb-3 pt-1">
-                            <h6 class="font-weight-medium">@item.proudct.Name  X @item.quantity</h6>
-                            @if (item.proudct.discount != null)
-                            {
-                                decimal Preceint = item.proudct.price * (item.proudct.discount.Discount_Preceint / 100);
-                                int PreceintPrice = (int)Preceint;
-                                var dTotalprice = PreceintPrice * item.quantity;
-                                <h6 class="text-muted ml-2"><del>$@Totalprice</del></h6><h6>優惠價 $@dTotalprice</h6>
-                            }
-                            else
-                            {
-                                <h6 class="font-weight-medium">$@Totalprice</h6>
-                            }
+                                        <input type="hidden" id="ProudctId" name="ProudctId" value="@item.ProudctId" />
+                                        <input type="text" id="quantity" name="quantity" onchange="javascript: Savequantity(@item.CartId,@item.ProudctId)" class="form-control form-control-sm bg-secondary text-center" value="@item.quantity">
 
+
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-plus">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                                @if (item.proudct.discount != null)
+                                {
+                                    decimal Preceint = item.proudct.price * (item.proudct.discount.Discount_Preceint / 100);
+                                    int PreceintPrice = (int)Preceint;
+                                    var dTotalprice = PreceintPrice * item.quantity;
+                                    <td class="align-middle">$@dTotalprice</td>
+                                }
+                                else
+                                {
+                                    var Totalprice = item.proudct.price * item.quantity;
+                                    <td class="align-middle">@Totalprice</td>
+                                }
+                                <td class="align-middle">
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <button class="Dbdata-btn btn btn-sm btn-primary" id="UpdateCatItems" data-herf="@Url.Action("UpdateCart", "ShoppingCarts", new { Id = item.Id })"><i class="fa-regular fa-pen"></i></button>
+                                    }
+                                    else
+                                    {
+                                        <button class="CookieData-Btn btn btn-sm btn-primary" data-herf="@Url.Action("UpdateCookieCart", "ShoppingCarts")"><i class="fa-regular fa-pen"></i></button>
+                                    }
+
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <button class="Dbdata-btn btn btn-sm btn-primary" data-herf="@Url.Action("DeleteDbCart", "ShoppingCarts", new { Id = item.Id  })"><i class="fa fa-times"></i></button>
+                                    }
+                                    else
+                                    {
+                                        <button class="Delete-Btn btn btn-sm btn-primary" data-herf="@Url.Action("DeleteCookieCart", "ShoppingCarts")"><i class="fa fa-times"></i></button>
+                                    }
+
+
+
+                                </td>
+
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-4">
+
+                <div class="card border-secondary mb-5">
+                    <div class="card-header bg-secondary border-0">
+                        <h4 class="font-weight-semi-bold m-0">Cart Summary</h4>
+                    </div>
+                    <div class="card-body">
+                        @foreach (var item in Model)
+                        {
+                            var Totalprice = item.proudct.price * item.quantity;
+
+                            <div class="d-flex justify-content-between mb-3 pt-1">
+                                <h6 class="font-weight-medium">@item.proudct.Name  X @item.quantity</h6>
+                                @if (item.proudct.discount != null)
+                                {
+                                    decimal Preceint = item.proudct.price * (item.proudct.discount.Discount_Preceint / 100);
+                                    int PreceintPrice = (int)Preceint;
+                                    var dTotalprice = PreceintPrice * item.quantity;
+                                    <h6 class="text-muted ml-2"><del>$@Totalprice</del></h6><h6>優惠價 $@dTotalprice</h6>
+                                }
+                                else
+                                {
+                                    <h6 class="font-weight-medium">$@Totalprice</h6>
+                                }
+
+                            </div>
+                        }
+
+
+
+
+                        <div class="d-flex justify-content-between">
+                            <h6 class="font-weight-medium">Shipping</h6>
+                            <h6 class="font-weight-medium">$10</h6>
                         </div>
-                    }
-
-
-
-
-                    <div class="d-flex justify-content-between">
-                        <h6 class="font-weight-medium">Shipping</h6>
-                        <h6 class="font-weight-medium">$10</h6>
                     </div>
-                </div>
-                <div class="card-footer border-secondary bg-transparent">
-                    <div class="d-flex justify-content-between mt-2">
-                        <h5 class="font-weight-bold">Total</h5>
-                        <h5 class="font-weight-bold">$160</h5>
+                    <div class="card-footer border-secondary bg-transparent">
+                        <div class="d-flex justify-content-between mt-2">
+                            <h5 class="font-weight-bold">Total</h5>
+                            <h5 class="font-weight-bold">$160</h5>
+                        </div>
+                        <button class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
                     </div>
-                    <button class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
                 </div>
             </div>
         </div>
     </div>
-</div>
 }
-else {
-<h1>現在沒有商品</h1>
+else
+{
+    <h1>現在沒有商品</h1>
 
 }
 
-
+ProudctId
 <script>
 
+    function Savequantity(  CartId,ProudId) {
+        var dbForm = new FormData();
+        var quantity = $("#quantity").val();
+        var ProudctId = ProudId;
+        var CartId = CartId;
 
-    $(".data-btn").click(function () {
-       
+        dbForm.append("quantity", quantity);
+        dbForm.append("ProudctId", ProudctId);
+        dbForm.append("CartId", CartId);
         $.ajax({
-            url: $(this).attr("data-herf"),
+            url: $("#UpdateCatItems").attr("data-herf"),
             type: "post",
-            data: $("ActionForm").serialize(),
+            processData: false,
+            contentType: false,
+            data: dbForm,
         }).done(function (respone) {
             debugger;
             if (respone.Success) {
+                debugger;
                 location.reload();
+            } else {
+                debugger;
             }
         });
-    });
+    }
+    
+
+    //$(".Dbdata-btn").click(function () {
+    //    var dbForm = new FormData();
+    //    var quantity = $("#quantity").val();
+    //    var ProudctId = $("#ProudctId").val();
+
+
+    //    dbForm.append("quantity", quantity);
+    //    dbForm.append("ProudctId", ProudctId);
+    //    $.ajax({
+    //        url: $(this).attr("data-herf"),
+    //        type: "post",
+    //        data: dbForm,
+    //    }).done(function (respone) {
+    //        debugger;
+    //        if (respone.Success) {
+    //            location.reload();
+    //        }
+    //    });
+    //});
 
 
     $(".CookieData-Btn").click(function () {
@@ -200,7 +233,7 @@ else {
         });
     });
 
-    
+
     $(".Delete-Btn").click(function () {
         debugger;
         $(this).parent().parent().remove();

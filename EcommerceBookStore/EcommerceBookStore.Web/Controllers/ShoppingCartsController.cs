@@ -18,7 +18,7 @@ namespace EcommerceBookStore.Web.Controllers
     public class ShoppingCartsController : Controller
     {
 
-        private CartService _cartService;
+        private CartService _cartService = new CartService();
         private EBookStoreContext _db = new EBookStoreContext();
         // GET: ShoppingCarts
         public ActionResult Index(List<getAllCartItems> cartItems)
@@ -139,7 +139,7 @@ namespace EcommerceBookStore.Web.Controllers
             string UserId = User.Identity.GetUserId();
             bool result = false;
             
-            result = UpdateDbByCart(cartItem,Id);
+            result = UpdateDbByCart(cartItem, Id);
 
 
             if (result)
@@ -302,11 +302,13 @@ namespace EcommerceBookStore.Web.Controllers
         private bool UpdateDbByCart(CartItem cartItem , int Id)
         {
             bool Result = false;
-            if (_db.proudcts.Where(x => x.Id == cartItem.ProudctId) != null  && _cartService.GetCartItemById(Id) != null)
+           
+            if (_db.proudcts.Find(cartItem.ProudctId) != null  && _cartService.GetCartItemById(Id) != null)
             {
                 Result = _cartService.UpdateCartItem(cartItem);
 
             }
+
 
             return Result;
         }
