@@ -15,9 +15,20 @@ namespace EcommerceBookStore.Server
        public Cart GetCartById(string Id)
         {
             var context = new EBookStoreContext();
-
-            return context.Carts.Where(cart => cart.BookStoreUserId == Id).First();
+           
+            return  context.Carts.Where(cart => cart.BookStoreUserId == Id).First();
         }
+
+        public Cart SeachCartId(string Id)
+        {
+            
+            var context = new EBookStoreContext();
+
+            context.Carts.Where(cart => cart.BookStoreUserId == Id).FirstOrDefault();
+           
+            return context.Carts.Where(cart => cart.BookStoreUserId == Id).FirstOrDefault();
+        }
+
 
         public CartItem GetCartItemById(int Id)
         {

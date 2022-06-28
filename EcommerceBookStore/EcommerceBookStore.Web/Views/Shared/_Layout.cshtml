@@ -48,7 +48,7 @@
 
         <div class="row align-items-center py-3 px-xl-5">
             <div class="col-lg-3 d-none d-lg-block">
-                <a href="" class="text-decoration-none">
+                <a href="@Url.Action("Index","BookProudct")" class="text-decoration-none">
                     <h1 class="m-0 display-5 font-weight-semi-bold"><span class="text-primary font-weight-bold border px-3 mr-1">E</span>Shopper</h1>
                 </a>
             </div>
@@ -77,24 +77,25 @@
         </div>
     </div>
     <!-- Topbar End -->
-
+    @Html.Partial("_LoginPartial")
 
     @RenderBody()
     <!-- JavaScript Libraries -->
-    <<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     @*<script src="lib/easing/easing.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>-->*@
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>-->*@
     <!-- Contact Javascript File -->
     <!--<script src="mail/jqBootstrapValidation.min.js"></script>
     <script src="mail/contact.js"></script>-->
     <!-- Template Javascript -->
     <!--<script src="js/main.js"></script>-->
-   
-   
+
+
 
 </body>
-
+@RenderSection("scripts", required: false)
 </html>
 
 

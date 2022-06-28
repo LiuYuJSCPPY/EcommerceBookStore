@@ -11,6 +11,7 @@ using EcommerceBookStore.Server;
 using EcommerceBookStore.Data;
 
 using Newtonsoft.Json;
+using System.Data.Entity;
 
 namespace EcommerceBookStore.Web.Controllers
 {
@@ -39,7 +40,7 @@ namespace EcommerceBookStore.Web.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 string UserId = User.Identity.GetUserId();
-                Cart cartId = _db.Carts.Where(u => u.BookStoreUserId == UserId).First();
+                Cart cartId = _db.Carts.Where(u => u.BookStoreUserId == UserId).FirstOrDefault();
                 if (Request.Cookies["Cart"] != null)
                 {
                      bool Result = CookieItemsByDbItems(cartId.Id);
@@ -50,10 +51,9 @@ namespace EcommerceBookStore.Web.Controllers
                 }
                 else
                 {
-                   
-                   
-                    AllCartItems = _db.CartItems.Where(c => c.CartId == cartId.Id).ToList();
-                   
+
+
+                    AllCartItems = _db.CartItems.Include(p => p.proudct).Where(c => c.CartId == cartId.Id).ToList();
                 }
             }
             else
@@ -100,34 +100,12 @@ namespace EcommerceBookStore.Web.Controllers
         {
             JsonResult json = new JsonResult();
             string UserId = User.Identity.GetUserId();
+           
             bool result = false;
-            if(UserId != null)
+            if(User.Identity.IsAuthenticated)
             {
-                Cart IsCart = _cartService.GetCartById(UserId);
-                if(IsCart == null)
-                {
-                     Cart SaveCart = new Cart();
-                    SaveCart.BookStoreUserId = UserId;
-                    if (_cartService.SaveCart(SaveCart))
-                    {
-                        Cart AddCartId = _cartService.GetCartById(UserId);
-                       
-                        cartItem.CartId = AddCartId.Id;
-                        if(cartItem.quantity == null)
-                        {
-                            cartItem.quantity++;
-                        }
-                        
-                        result = _cartService.SaveCartItem(cartItem);
-                    }
 
-                }
-                else
-                {
-                   
-                    cartItem.CartId = IsCart.Id;
-                    result = _cartService.SaveCartItem(cartItem);
-                }
+                result = AddToDbCart(cartItem);
             }
             else
             {
@@ -155,13 +133,13 @@ namespace EcommerceBookStore.Web.Controllers
 
 
         [HttpPost]
-        public JsonResult UpdateCart(CartItem cartItem,int? Id)
+        public JsonResult UpdateCart(CartItem cartItem,int Id)
         {
             JsonResult json = new JsonResult();
             string UserId = User.Identity.GetUserId();
             bool result = false;
             
-            result = UpdateDbByCart(cartItem,Id.Value);
+            result = UpdateDbByCart(cartItem,Id);
 
 
             if (result)
@@ -223,6 +201,35 @@ namespace EcommerceBookStore.Web.Controllers
             return json;
         }
 
+        private bool AddToDbCart(CartItem cartItem)
+        {
+
+            string UserId = User.Identity.GetUserId();
+            bool Result = false;
+            Cart UserCart = _db.Carts.Where(u => u.BookStoreUserId == UserId).FirstOrDefault();
+            if (UserCart != null)
+            {
+                cartItem.CartId = UserCart.Id;
+                if(cartItem.quantity == null)
+                {
+                    cartItem.quantity++;
+                }
+                
+                _db.CartItems.Add(cartItem);
+                Result = _db.SaveChanges() > 0;
+
+            }
+            else
+            {
+                Cart SaveUserCart = new Cart();
+                SaveUserCart.BookStoreUserId = UserId;
+                _db.Carts.Add(SaveUserCart);
+                _db.SaveChanges();
+                AddToDbCart(cartItem);
+            }
+
+            return Result;
+        }
 
 
         private bool addToCookieCart(CartItem cartItem)
