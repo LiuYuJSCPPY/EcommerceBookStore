@@ -172,6 +172,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Dashboard\Controllers\CategoriesController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\DiscountsController.cs" />
+    <Compile Include="Areas\Dashboard\Controllers\OrderController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\ProudctsController.cs" />
     <Compile Include="Areas\Dashboard\Controllers\UserController.cs" />
     <Compile Include="Areas\Dashboard\DashboardAreaRegistration.cs" />
@@ -346,6 +347,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Dashboard\Data\" />
+    <Folder Include="Areas\Dashboard\Views\Order\" />
     <Folder Include="Image\Category\" />
   </ItemGroup>
   <ItemGroup>

@@ -54,7 +54,7 @@
                                         </div>
 
                                         <input type="hidden" id="ProudctId" name="ProudctId" value="@item.ProudctId" />
-                                        <input type="text" id="quantity" name="quantity" onchange="javascript: Savequantity(@item.CartId,@item.ProudctId)" class="form-control form-control-sm bg-secondary text-center" value="@item.quantity">
+                                        <input type="text" id="quantity" name="quantity" onchange="Savequantity(@item.CartId,@item.ProudctId)" class="form-control form-control-sm bg-secondary text-center" value="@item.quantity">
 
 
                                         <div class="input-group-btn">
@@ -159,10 +159,10 @@ else
 
 }
 
-ProudctId
+
 <script>
 
-    function Savequantity(  CartId,ProudId) {
+    function Savequantity(CartId,ProudId) {
         var dbForm = new FormData();
         var quantity = $("#quantity").val();
         var ProudctId = ProudId;

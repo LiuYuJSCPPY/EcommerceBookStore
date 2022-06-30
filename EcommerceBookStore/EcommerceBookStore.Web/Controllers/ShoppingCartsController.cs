@@ -41,12 +41,13 @@ namespace EcommerceBookStore.Web.Controllers
             {
                 string UserId = User.Identity.GetUserId();
                 Cart cartId = _db.Carts.Where(u => u.BookStoreUserId == UserId).FirstOrDefault();
-                if (Request.Cookies["Cart"] != null)
+                Response.Cookies["Cart"].Value = "{}";
+                if (Request.Cookies["Cart"].Value != "{}")
                 {
                      bool Result = CookieItemsByDbItems(cartId.Id);
                     if (Result)
                     {
-                        AllCartItems = _db.CartItems.Where(c => c.CartId == cartId.Id).ToList();
+                        AllCartItems = _db.CartItems.Include(model => model.proudct).Where(c => c.CartId == cartId.Id).ToList();
                     }
                 }
                 else
@@ -101,6 +102,11 @@ namespace EcommerceBookStore.Web.Controllers
             JsonResult json = new JsonResult();
             string UserId = User.Identity.GetUserId();
            
+            if(cartItem.quantity == 0)
+            {
+                cartItem.quantity += 1;
+            }
+
             bool result = false;
             if(User.Identity.IsAuthenticated)
             {
