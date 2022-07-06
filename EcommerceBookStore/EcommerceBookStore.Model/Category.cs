@@ -20,7 +20,7 @@ namespace EcommerceBookStore.Model
         [DisplayName("圖片")]
         public string CategroyImage { get; set; }
 
-        public ICollection<Proudct> proudcts { get; set; }
+        public virtual ICollection<Proudct> proudcts { get; set; }
 
     }
 }

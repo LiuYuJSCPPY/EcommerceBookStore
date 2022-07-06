@@ -1,0 +1,115 @@
+﻿@model EcommerceBookStore.Web.ViewModel.CheckOrderItem
+@{
+    ViewBag.Title = "CheckOrderAdmin";
+}
+
+@{
+    int TotaPrice = 0;
+}
+
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <div class="col-lg-8">
+            <div class="mb-4">
+                <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>First Name</label>
+                        <input class="form-control" type="text" placeholder="John" value="@Model.BookStoreUser.UserName">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Last Name</label>
+                        <input class="form-control" type="text" placeholder="Doe" value="@Model.BookStoreUser.FirstName">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Last Name</label>
+                        <input class="form-control" type="text" placeholder="Doe" value="@Model.BookStoreUser.LastName">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>E-mail</label>
+                        <input class="form-control" type="text" placeholder="example@email.com" value="@Model.BookStoreUser.Email">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Last Name</label>
+                        <input class="form-control" type="text" placeholder="Doe" value="@Model.BookStoreUser.Address">
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Last Name</label>
+                        <input class="form-control" type="text" placeholder="Doe" value="@Model.BookStoreUser.PhoneNumber">
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-lg-4">
+            <div class="card border-secondary mb-5">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0">Order Total</h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="font-weight-medium mb-3">Products</h5>
+
+                    @foreach (var ProudctItem in Model.CartItems)
+                    {
+                        int price = 0;
+                        if (ProudctItem.proudct.discount != null)
+                        {
+                            decimal DiscountPrice = ProudctItem.proudct.price * (ProudctItem.proudct.discount.Discount_Preceint / 100);
+                            price = (int)DiscountPrice * ProudctItem.quantity;
+                            TotaPrice += price;
+                        }
+                        price = ProudctItem.proudct.price * ProudctItem.quantity;
+                        TotaPrice += price;
+                        <div class="d-flex justify-content-between">
+                            <p>@ProudctItem.proudct.Name * @ProudctItem.quantity</p>
+                            <p>$@price</p>
+                        </div>
+                    }
+
+
+                </div>
+               
+                <div class="card-footer border-secondary bg-transparent">
+                    <div class="d-flex justify-content-between mt-2">
+                        <h5 class="font-weight-bold">Total</h5>
+                        <h5  class="font-weight-bold">$@TotaPrice</h5>
+                        <form id="Total">
+                            <input type="hidden" value="@TotaPrice">
+                        </form>
+                       
+                    </div>
+                </div>
+            </div>
+            <div class="card border-secondary mb-5">
+
+                <div class="card-footer border-secondary bg-transparent">
+                    <button id="SaveButton" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">送出訂單</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $("#SaveButton").click(function () {
+       
+
+       
+        $.ajax({
+            url: "@Url.Action("SaveOrder", "Order")",
+            type: "post",
+            data: $("#Total").serialize(),
+            
+        }).done(function (respone) {
+            if (respone.Success) {
+                debugger;
+                window.location.href = "@Url.Action("Index","BookProudct")";
+            } else {
+                debugger;
+            }
+        })
+    })
+</script>

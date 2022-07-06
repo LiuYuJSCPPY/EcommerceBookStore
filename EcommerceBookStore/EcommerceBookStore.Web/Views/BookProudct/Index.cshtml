@@ -41,7 +41,7 @@
             </nav>
             <div id="header-carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
-                    @if (Model.discounts.First() != null)
+                    @if (Model.discounts.FirstOrDefault() != null)
                     {
                         int Preceint = (int)Model.discounts.First().Discount_Preceint;
                             <div class="carousel-item active" style="height: 410px;">

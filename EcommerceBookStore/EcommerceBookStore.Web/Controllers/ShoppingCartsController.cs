@@ -23,38 +23,31 @@ namespace EcommerceBookStore.Web.Controllers
         // GET: ShoppingCarts
         public ActionResult Index(List<getAllCartItems> cartItems)
         {
-            //String UserId = User.Identity.GetUserId();
-            // Cart cart = _db.Carts.Where(u => u.BookStoreUserId == UserId).First();
-            //if(UserId != null)
-            // {
-            //     if(cart == null)
-            //     {
-            //         cart.BookStoreUserId = UserId;
-            //         _cartService.SaveCart(cart);
-            //     }
-            // }
-
-
-
+  
             List<CartItem> AllCartItems = new List<CartItem>();
             if (User.Identity.IsAuthenticated)
             {
                 string UserId = User.Identity.GetUserId();
                 Cart cartId = _db.Carts.Where(u => u.BookStoreUserId == UserId).FirstOrDefault();
                 Response.Cookies["Cart"].Value = "{}";
-                if (Request.Cookies["Cart"].Value != "{}")
+
+               
+                if (Request.Cookies["Cart"].Value != "{}" )
                 {
                      bool Result = CookieItemsByDbItems(cartId.Id);
                     if (Result)
                     {
                         AllCartItems = _db.CartItems.Include(model => model.proudct).Where(c => c.CartId == cartId.Id).ToList();
-                    }
+                    } 
+
+                    
                 }
-                else
+                else 
                 {
 
-
                     AllCartItems = _db.CartItems.Include(p => p.proudct).Where(c => c.CartId == cartId.Id).ToList();
+
+
                 }
             }
             else

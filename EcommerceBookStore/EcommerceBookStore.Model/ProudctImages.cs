@@ -14,7 +14,7 @@ namespace EcommerceBookStore.Model
     {
         public int Id { get; set; }
         public int ProudctId { get; set; }
-        public Proudct proudct { get; set; }
+        public virtual Proudct proudct { get; set; }
         public string ProudctPath { get; set; }
     }
 }

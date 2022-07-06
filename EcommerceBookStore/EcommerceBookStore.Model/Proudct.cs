@@ -22,11 +22,11 @@ namespace EcommerceBookStore.Model
         public string desc { get; set; }
         public int ProudctInventory { get; set; }
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
 
         public int price { get; set; }
         public int? DiscountId { get; set; }
-        public Discount discount { get; set; }
+        public virtual Discount discount { get; set; }
         public DateTime Create_at { get; set; }
         public DateTime Modified_at { get; set; }
         public string ProudctImage { get; set; }
@@ -34,8 +34,8 @@ namespace EcommerceBookStore.Model
 
 
 
-        public ICollection<CartItem> cartItems { get; set; }
-        public ICollection<OrderItem> orderItems { get; set; }
+        public virtual ICollection<CartItem> cartItems { get; set; }
+        public virtual ICollection<OrderItem> orderItems { get; set; }
 
     }
 }

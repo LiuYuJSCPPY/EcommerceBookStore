@@ -1,0 +1,81 @@
+﻿@model IEnumerable<EcommerceBookStore.Model.Order>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+
+<div class="card">
+    <div class="card-header">
+        <ul class="nav nav-pills" role="tablist">
+            <li class="nav-item">
+                <button id="ActionButton" type="button" data-herf="@Url.Action("Action","Categories")" class="data-btn btn btn-primary" data-bs-toggle="modal" data-bs-target="#ActionForm">
+                    新增分類
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="table-responsive text-nowrap">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name)</th>
+                    <th>CategroyImage)</th>
+
+
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@item.BookStoreUser.UserName</strong></td>
+
+                        <td>
+                            @item.orderItems.Count()
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu" style="">
+                                    <button class="data-btn dropdown-item" data-herf="@Url.Action("Action","Categories",new { Id = item.Id })" data-bs-toggle="modal" data-bs-target="#ActionForm"><i class="bx bx-edit-alt me-1"></i> 更新</button>
+                                    <button class="data-btn dropdown-item" data-herf="@Url.Action("Delete","Categories",new { Id = item.Id })" data-bs-toggle="modal" data-bs-target="#ActionForm"><i class="bx bx-trash me-1"></i> 刪除</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+
+        </table>
+    </div>
+</div>
+
+
+
+<div class="modal fade" id="ActionForm" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".data-btn").click(function(){
+        $.ajax({
+            url: $(this).attr("data-herf"),
+            type: "get",
+        }).done(function (respone) {
+            debugger;
+            $(".modal-dialog .modal-content").html(respone)
+        })
+    })
+</script>
+}

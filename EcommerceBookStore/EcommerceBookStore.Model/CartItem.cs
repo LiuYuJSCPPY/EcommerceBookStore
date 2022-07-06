@@ -15,10 +15,10 @@ namespace EcommerceBookStore.Model
         public int Id { get; set; }
 
         public int CartId { get; set; }
-        public Cart cart { get; set; }
+        public virtual Cart cart { get; set; }
         
         public int ProudctId { get; set; }
-        public Proudct proudct { get; set; }
+        public virtual Proudct proudct { get; set; }
 
         public int quantity { get; set; }
 

@@ -14,9 +14,9 @@ namespace EcommerceBookStore.Model
     {
         public int Id { get; set; }
         public int ProudctId { get; set; }
-        public Proudct proudct { get; set; }
+        public virtual Proudct proudct { get; set; }
         public string BookStoreUserId { get; set; }
-        public BookStoreUser BookStoreUser { get; set; }
+        public virtual BookStoreUser BookStoreUser { get; set; }
         public string Commit { get; set; }
         public DateTime Create_at { get; set; }
 

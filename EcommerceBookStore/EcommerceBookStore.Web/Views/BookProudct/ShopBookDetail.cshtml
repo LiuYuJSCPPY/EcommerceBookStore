@@ -136,23 +136,15 @@
                             <h4 class="mb-4">留言區</h4>
                             
                           
-                            <form>
+                            <form id="ActionForm">
                                 <div class="form-group">
                                     <label for="message">留言</label>
-                                    <textarea id="message" cols="30" rows="5" class="form-control"></textarea>
+                                    <textarea id="message" cols="30" rows="5" name="Commit" class="form-control"></textarea>
                                 </div>
-                                <div class="form-group">
-                                    <label for="name">名字</label>
-                                    <input type="text" class="form-control" id="name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">信箱</label>
-                                    <input type="email" class="form-control" id="email">
-                                </div>
-                                <div class="form-group mb-0">
-                                    <input type="submit" value="Leave Your Review" class="btn btn-primary px-3">
-                                </div>
+                                
+                                
                             </form>
+                            <button value="Leave Your Review" id="commit-btn" class=" btn btn-primary px-3" >  </button>
                         </div>
                     </div>
                 </div>
@@ -163,6 +155,26 @@
 
 
 <script>
+
+   
+
+    $("#commit-btn").click(function () {
+        $.ajax({
+            url: "@Url.Action("ShopBookCommit", "BookProudct", new {Id =Model.proudct.Id })",
+            type: "post",
+            data: $("#ActionForm").serialize,
+        }).done(function (respone) {
+            debugger;
+            if (respone.Success) {
+                debugger;
+                location.reload();
+            } else {
+                debugger;
+
+            }
+        });
+    });
+
     $("#addToCart").click(function () {
         debugger;
         var AddCart = new FormData();

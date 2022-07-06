@@ -23,6 +23,6 @@ namespace EcommerceBookStore.Model
         public DateTime? Modified_at { get; set; }
 
 
-        public ICollection<Proudct> Proudcts { get; set; }
+        public virtual ICollection<Proudct> Proudcts { get; set; }
     }
 }

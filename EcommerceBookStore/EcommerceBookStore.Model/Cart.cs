@@ -12,11 +12,11 @@ namespace EcommerceBookStore.Model
     {
         public int Id { get; set; }
         public string BookStoreUserId { get; set; }
-        public BookStoreUser BookStoreUser { get; set; }
+        public virtual BookStoreUser BookStoreUser { get; set; }
 
         public int? Total { get; set; }
        
 
-        public ICollection<CartItem> cartItems  { get; set; }
+        public virtual ICollection<CartItem> cartItems  { get; set; }
     }
 }

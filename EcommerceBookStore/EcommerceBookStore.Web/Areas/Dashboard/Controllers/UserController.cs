@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using EcommerceBookStore.Server;
 using EcommerceBookStore.Model;
 using EcommerceBookStore.Web.Areas.Dashboard.ViewModel;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using EcommerceBookStore.Data;
 using System.Threading.Tasks;

@@ -7,6 +7,8 @@ using EcommerceBookStore.Model;
 using EcommerceBookStore.Data;
 using EcommerceBookStore.Server;
 using EcommerceBookStore.Web.ViewModel;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity;
 using PagedList;
 
 namespace EcommerceBookStore.Web.Controllers
@@ -71,6 +73,37 @@ namespace EcommerceBookStore.Web.Controllers
             };
 
             return View(model);
+        }
+
+
+
+        [HttpPost]
+        public JsonResult ShopBookCommit([Bind(Include ="Commit")]ProudctCommit proudctCommit,int Id )
+        {
+            JsonResult json = new JsonResult();
+            bool Result = false;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                proudctCommit.ProudctId = Id;
+                proudctCommit.BookStoreUserId = User.Identity.GetUserId();
+                proudctCommit.Create_at = DateTime.Now;
+                _db.proudctCommit.Add(proudctCommit);
+                Result = _db.SaveChanges() > 0;
+            }
+           
+
+
+            if (Result)
+            {
+                json.Data = new { Success = true };
+            }
+            else
+            {
+                json.Data = new { Success = false, Message = "Error" };
+            }
+
+            return json;
         }
 
     }
