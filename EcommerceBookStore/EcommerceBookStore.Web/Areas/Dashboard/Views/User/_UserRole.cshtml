@@ -1,0 +1,77 @@
+﻿
+@model EcommerceBookStore.Web.Areas.Dashboard.ViewModel.UserRoleViewModel
+
+<div class="modal-header">
+
+    <h5 class="modal-title" id="exampleModalLabel">更新使用者</h5>
+
+
+
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    @if (Model.UserRole != null && Model.UserRole.Count() > 0)
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">
+                        使用者權限
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var role in Model.UserRole)
+                {
+                    <tr>
+                        <td>
+                            @role.Name
+                        </td>
+                        <td>
+                            <button data-href="@Url.Action("UserRoleOperation", "Users", new { userID = Model.UserId, roleID = role.Id, isDelete = true })" type="button" class="btnRoleOperation btn btn-danger"><i class="fas fa-user-times mr-1"></i> Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    }
+    else
+    {
+        <div class="alert alert-warning" role="alert">
+            This user has no roles.
+        </div>
+    }
+    <hr />
+
+    @if (Model.Roles != null && Model.Roles.Count() > 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th colspan="2">
+                        Assign New Roles
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var role in Model.Roles)
+                {
+                    <tr>
+                        <td>
+                            @role.Name
+                        </td>
+                        <td>
+                            <button data-href="@Url.Action("UserRoleOperation", "DashboradUser", new { userID = Model.UserId, roleID = role.Id })" type="button" class="btnRoleOperation btn btn-success"><i class="fas fa-user-check mr-1"></i> Assign</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+    <button type="button" id="SaveBtn-btn" class="btn btn-primary">儲存</button>
+</div>
+

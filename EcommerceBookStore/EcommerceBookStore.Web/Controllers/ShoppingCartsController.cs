@@ -108,7 +108,7 @@ namespace EcommerceBookStore.Web.Controllers
             }
             else
             {
-                result = this.addToCookieCart(cartItem);
+                result = addToCookieCart(cartItem);
 
             }
 
@@ -325,9 +325,7 @@ namespace EcommerceBookStore.Web.Controllers
             {
                 string getAllCookie = getCookie.Value;
                 CookieCart = JsonConvert.DeserializeObject<CookieCartViewModel>(getAllCookie);
-                List<ShoppingCartViewModel> set = CookieCart.shoppingCartViewModels.ToList();
-
-              
+       
             }      
 
             return CookieCart; 

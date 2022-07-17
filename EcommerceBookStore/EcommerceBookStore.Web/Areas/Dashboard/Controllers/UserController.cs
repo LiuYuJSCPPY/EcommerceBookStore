@@ -20,15 +20,16 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
 
         private EBookStoreSignInManager _signInManager;
         private EBookStoreUserManager _userManager;
-
+        private EBookStoreRolesManager _roleManager;
         public UserController()
         {
         }
 
-        public UserController(EBookStoreUserManager userManager, EBookStoreSignInManager signInManager)
+        public UserController(EBookStoreUserManager userManager, EBookStoreSignInManager signInManager,EBookStoreRolesManager roleManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            RoleManager = roleManager;
         }
 
         public EBookStoreSignInManager SignInManager
@@ -54,6 +55,18 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
                 _userManager = value;
             }
 
+        }
+        public EBookStoreRolesManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().Get<EBookStoreRolesManager>();
+
+            }
+            private set
+            {
+                _roleManager = value;
+            }
         }
 
 
@@ -168,6 +181,48 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.Controllers
                 model.Id = OldUser.Id;
             }
             return PartialView("_Delete",model);
+        }
+
+
+        public ActionResult UserRole(string Id)
+        {
+            UserRoleViewModel model = new UserRoleViewModel();
+            model.UserId = Id;
+            var User = UserManager.FindById(Id);
+            var UserRole = User.Roles.Select(x => x.RoleId).ToList();
+            model.UserRole = RoleManager.Roles.Where(x => UserRole.Contains(x.Id)).ToList();
+            model.Roles = RoleManager.Roles.Where(x => !UserRole.Contains(x.Id)).ToList();
+
+            return PartialView("_UserRole",model);
+        }
+
+        [HttpPost]
+        public JsonResult UserRoleOpdestion(string Id,string RoleId , bool IsDelete = false)
+        {
+            JsonResult json = new JsonResult();
+
+            var User = UserManager.FindById(Id);
+            var Role = RoleManager.FindById(RoleId);
+
+            if(User != null && Role != null)
+            {
+                IdentityResult result = null;
+                if (!IsDelete)
+                {
+                    result = UserManager.AddToRole(Id, Role.Name);
+                }
+                else
+                {
+                    result = UserManager.RemoveFromRole(Id, Role.Name);
+                }
+                json.Data = new { Success = result.Succeeded, Message = $"{result.Errors}" };
+            }
+            else
+            {
+                json.Data = new { Success = false, Message = "Invalid operation." };
+            }
+
+            return json;
         }
     }
 }

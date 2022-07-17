@@ -48,4 +48,11 @@ namespace EcommerceBookStore.Web.Areas.Dashboard.ViewModel
         [DisplayName("圖片")]
         public string UserImage { get; set; }
     }
+
+    public class UserRoleViewModel
+    {
+        public string UserId { get; set; }
+        public IEnumerable<IdentityRole> Roles { get; set; }
+        public IEnumerable<IdentityRole> UserRole { get; set; }
+    }
 }

@@ -182,6 +182,7 @@
     <Compile Include="Areas\Dashboard\ViewModel\DiscountViewModel.cs" />
     <Compile Include="Areas\Dashboard\ViewModel\OrderViewModel.cs" />
     <Compile Include="Areas\Dashboard\ViewModel\ProudctViewModel.cs" />
+    <Compile Include="Areas\Dashboard\ViewModel\RoleViewModel.cs" />
     <Compile Include="Areas\Dashboard\ViewModel\UserViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookProudctController.cs" />
@@ -300,6 +301,8 @@
     <Content Include="Areas\Dashboard\Views\OrderItems\Edit.cshtml" />
     <Content Include="Areas\Dashboard\Views\OrderItems\Index.cshtml" />
     <Content Include="Areas\Dashboard\Views\Orders\Index.cshtml" />
+    <Content Include="Areas\Dashboard\Views\Role\Action.cshtml" />
+    <Content Include="Areas\Dashboard\Views\User\_UserRole.cshtml" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
     <Content Include="Scripts\jquery-3.6.0.min.js" />
@@ -359,7 +362,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Dashboard\Data\" />
-    <Folder Include="Areas\Dashboard\Views\Role\" />
     <Folder Include="Image\Category\" />
   </ItemGroup>
   <ItemGroup>

@@ -20,15 +20,16 @@ namespace EcommerceBookStore.Web.Controllers
     {
         private EBookStoreSignInManager _signInManager;
         private EBookStoreUserManager _userManager;
-
+        private EBookStoreRolesManager _rolesManager;
         public AccountController()
         {
         }
 
-        public AccountController(EBookStoreUserManager userManager, EBookStoreSignInManager signInManager )
+        public AccountController(EBookStoreUserManager userManager, EBookStoreSignInManager signInManager,EBookStoreRolesManager eBookStoreRolesManager )
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            RoleManager = eBookStoreRolesManager;
         }
 
         public EBookStoreSignInManager SignInManager
@@ -56,6 +57,17 @@ namespace EcommerceBookStore.Web.Controllers
 
         }
         
+        public EBookStoreRolesManager RoleManager
+        {
+            get
+            {
+                return _rolesManager ?? HttpContext.GetOwinContext().Get<EBookStoreRolesManager>();
+            }
+            private set
+            {
+                _rolesManager = value;
+            }
+        }
 
         //
         // GET: /Account/Login
@@ -160,6 +172,7 @@ namespace EcommerceBookStore.Web.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await UserManager.AddToRoleAsync(user.Id, "會員");
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771

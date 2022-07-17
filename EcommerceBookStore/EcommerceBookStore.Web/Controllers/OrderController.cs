@@ -13,6 +13,7 @@ using System.Data.Entity;
 
 namespace EcommerceBookStore.Web.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         EBookStoreContext _db = new EBookStoreContext();

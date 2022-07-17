@@ -52,6 +52,8 @@ E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStor
 E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\bin\Microsoft.Web.Infrastructure.dll
 E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\bin\Newtonsoft.Json.dll
 E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\bin\Owin.dll
+E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\bin\PagedList.dll
+E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\bin\PagedList.Mvc.dll
 E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\bin\System.Web.Helpers.dll
 E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\bin\System.Web.Mvc.dll
 E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\bin\System.Web.Optimization.dll
@@ -76,6 +78,8 @@ E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStor
 E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\bin\Microsoft.Owin.Security.OAuth.xml
 E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\bin\Microsoft.Owin.Security.Twitter.xml
 E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\bin\Newtonsoft.Json.xml
+E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\bin\PagedList.xml
+E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\bin\PagedList.Mvc.xml
 E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\bin\System.Web.Helpers.xml
 E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\bin\System.Web.Mvc.xml
 E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\bin\System.Web.Razor.xml
@@ -94,7 +98,3 @@ E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStor
 E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\obj\Debug\EcommerceBookStore.Web.csproj.CopyComplete
 E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\obj\Debug\EcommerceBookStore.Web.dll
 E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\obj\Debug\EcommerceBookStore.Web.pdb
-E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\bin\PagedList.dll
-E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\bin\PagedList.Mvc.dll
-E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\bin\PagedList.xml
-E:\0_MyDocument\Visual_Studio_2022\Projects\EcommerceBookStore\EcommerceBookStore\EcommerceBookStore.Web\bin\PagedList.Mvc.xml

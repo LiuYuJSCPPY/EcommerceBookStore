@@ -32,13 +32,20 @@ namespace EcommerceBookStore.Web.Controllers
         {
             List<Proudct> proudcts = _db.proudcts.ToList();
             BookProudctPagation model = new BookProudctPagation();
+
+            model.categories = _db.Categories.ToList();
+            model.discounts = _db.discounts.ToList();
+
+          
+
             if(SearchBy == "Categroy")
             {
                 proudcts = _db.proudcts.Where(x => x.Category.Name == SearchText || SearchText == null).ToList();
             }
             if(SearchBy == "Price")
             {
-                proudcts = _db.proudcts.Where(p => p.price < MinPrice || MinPrice == null).ToList();
+                int Prices = int.Parse(SearchText);
+                proudcts = _db.proudcts.Where(p => p.price < Prices || Prices == null).ToList();
             }
             if(CategroyId > 0)
             {
@@ -50,12 +57,11 @@ namespace EcommerceBookStore.Web.Controllers
 
 
 
-            
-            model.proudcts = proudctsList;
-            model.categories = _db.Categories.ToList();
-            model.discounts = _db.discounts.ToList();
 
-            
+            model.proudcts = proudctsList;
+
+
+
             return View(model);
         }
 
@@ -76,7 +82,7 @@ namespace EcommerceBookStore.Web.Controllers
         }
 
 
-
+        [Authorize]
         [HttpPost]
         public JsonResult ShopBookCommit([Bind(Include ="Commit")]ProudctCommit proudctCommit,int Id )
         {

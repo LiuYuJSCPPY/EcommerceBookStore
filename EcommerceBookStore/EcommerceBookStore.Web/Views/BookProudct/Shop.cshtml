@@ -19,7 +19,7 @@
                 <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
                     @foreach (var Category in Model.categories)
                     {
-                        <a href="" class="nav-item nav-link">@Category.Name</a>
+                        <a href="@Url.Action("Shop","BookProudct",new { CategroyId = Category.Id })" class="nav-item nav-link">@Category.Name</a>
                     }
 
                 </div>
@@ -40,18 +40,34 @@
 
                     </div>
                     <div class="navbar-nav ml-auto py-0">
-                        
-                        <a href="" class="nav-item nav-link">登入</a>
-                        <a href="" class="nav-item nav-link">申請會員</a>
+
+                        <a href="@Url.Action("Login","Account")" class="nav-item nav-link">登入</a>
+                        <a href="@Url.Action("Register","Account")" class="nav-item nav-link">申請會員</a>
                     </div>
                 </div>
             </nav>
             <div id="header-carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
+                    @if (Model.discounts.FirstOrDefault() != null)
+                    {
+                        int Preceint = (int)Model.discounts.First().Discount_Preceint;
+                        <div class="carousel-item active" style="height: 410px;">
+                            <img class="img-fluid" src="@Url.Content(Model.discounts.First().DiscountImage)" alt="Image">
+                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                <div class="p-3" style="max-width: 700px;">
+                                    <h4 class="text-light text-uppercase font-weight-medium mb-3"> @Preceint 折  </h4>
+                                    <h3 class="display-4 text-white font-weight-semi-bold mb-4">@Model.discounts.First().Name</h3>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+
                     @foreach (var DicountItem in Model.discounts)
                     {
                         int Preceint = (int)DicountItem.Discount_Preceint;
-                        <div class="carousel-item active" style="height: 410px;">
+
+                        <div class="carousel-item " style="height: 410px;">
                             <img class="img-fluid" src="@Url.Content(DicountItem.DiscountImage)" alt="Image">
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
                                 <div class="p-3" style="max-width: 700px;">
@@ -102,7 +118,7 @@
                 @using (Html.BeginForm("Shop", "BookProudct", FormMethod.Get))
                 {
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search by name">
+                        <input type="text" name="SearchText" class="form-control" placeholder="Search by name">
                         <div class="input-group-append">
                             <span class="input-group-text bg-transparent text-primary">
                                 <i class="fa fa-search"></i>
@@ -110,13 +126,13 @@
                         </div>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" checked="" id="price-all">
-                        <label class="custom-control-label" for="price-all">All Price</label>
+                        <input type="radio" name="SearchBy" class="custom-control-input" checked="" id="price-all" value="Categroy">
+                        <label class="custom-control-label" for="price-all">分類</label>
                         <span class="badge border font-weight-normal">1000</span>
                     </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-1">
-                        <label class="custom-control-label" for="price-1">$0 - $100</label>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3" >
+                        <input type="radio" name="SearchBy" class="custom-control-input" id="price-1" value="Price">
+                        <label class="custom-control-label" for="price-1">價錢</label>
                         <span class="badge border font-weight-normal">150</span>
                     </div>
                 }
